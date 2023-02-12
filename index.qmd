@@ -1,0 +1,5 @@
+# Preface {.unnumbered .unlisted}
+
+This is a Quarto Pseudocode Extension Book Example.
+
+To learn more about Quarto Pseudocode Extension, please visit <https://github.com/leovan/quarto-pseudocode>.

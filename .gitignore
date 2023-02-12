@@ -1,0 +1,46 @@
+# R
+.Rhistory
+.Rapp.history
+.RData
+.Rproj.user/
+
+# Quarto
+.quarto/
+/*.html
+*.pdf
+*_files/
+_book
+
+# Lua
+/.luarc.json
+
+# Tex
+/*.tex
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+*.idx
+*.ilg
+*.ind
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+/.quarto/

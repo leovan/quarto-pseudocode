@@ -1,0 +1,173 @@
+# Examples
+
+## Test cross reference in different files
+
+Quicksort algorithm is shown as @alg-quicksort, cross reference in different files is only available with `pdf` format.
+
+## Test text-style
+
+Test text-style is shown as @alg-test-text-style.
+
+```pseudocode
+#| label: alg-test-text-style
+#| html-indent-size: "1.2em"
+#| html-comment-delimiter: "//"
+#| html-line-number: true
+#| html-line-number-punc: ":"
+#| html-no-end: true
+
+\begin{algorithm}
+\caption{Test text-style}
+\begin{algorithmic}
+\Require some preconditions
+\Ensure some postconditions
+\Procedure{Test-Declarations}{}
+  \State font families: {\sffamily sffamily, \ttfamily ttfamily, \normalfont normalfont, \rmfamily rmfamily.}
+  \State font weights: {normal weight, \bfseries bold, \mdseries medium. }
+  \State font shapes: {\itshape itshape \scshape Small-Caps \slshape slshape \upshape upshape.}
+  \State font sizes: \tiny tiny \scriptsize scriptsize \footnotesize
+  footnotesize \small small \normalsize normal \large large \Large Large
+  \LARGE LARGE \huge huge \Huge Huge \normalsize
+\EndProcedure
+\Procedure{Test-Commands}{}
+  \State \textnormal{textnormal,} \textrm{textrm,} \textsf{textsf,} \texttt{texttt.}
+  \State \textbf{textbf,} \textmd{textmd.}
+  \State \textup{textup,} \textit{textit,} \textsc{textsc,} \textsl{textsl.}
+  \State \uppercase{uppercase,} \lowercase{LOWERCASE.}
+\EndProcedure
+\Procedure{Test-Colors}{}
+  \State \Comment{feature not implemented}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+
+## Test atoms
+
+Test atoms is shown as @alg-test-atoms.
+
+```pseudocode
+#| label: alg-test-atoms
+#| html-line-number: false
+#| html-no-end: false
+
+\begin{algorithm}
+\caption{Test atoms}
+\begin{algorithmic}
+\State \textbf{Specials:} \{ \} \$ \& \# \% \_
+\State \textbf{Bools:} \And \Or \Not \True \False
+\State \textbf{Carriage return:} first line \\ second line
+\State \textbf{Text-symbols:} \textbackslash
+\State \textbf{Quote-symbols:} `single quotes', ``double quotes''
+\State \textbf{Math:} $(\mathcal{C}_m)$, $i \gets i + 1$, $E=mc^2$, \( x^n + y^n = z^n \), $\$$, \(\$\)
+\end{algorithmic}
+\end{algorithm}
+```
+
+## Test control blocks
+
+Test control blocks is shown as @alg-test-control-blocks-part-1 and @alg-test-control-blocks-part-2.
+
+```pseudocode
+#| label: alg-test-control-blocks-part-1
+
+\begin{algorithm}
+\caption{Test control blocks - Part 1}
+\begin{algorithmic}
+\Procedure{Test-If}{}
+  \If{<cond>}
+    \State <block>
+  \ElsIf{<cond>}
+    \State <block>
+  \Else
+    \State <block>
+  \EndIf
+\EndProcedure
+\Procedure{Test-For}{$n$}
+  \State $i \gets 0$
+  \For{$i < n$}
+    \Print $i$
+    \State $i \gets i + 1$
+  \EndFor
+\EndProcedure
+\Procedure{Test-For-To}{$n$}
+  \State $i \gets 0$
+  \For{$i$ \To $n$}
+    \Print $i$
+  \EndFor
+\EndProcedure
+\Procedure{Test-For-DownTo}{$n$}
+  \For{$i \gets n$ \DownTo $0$}
+    \Print $i$
+  \EndFor
+\EndProcedure
+\Procedure{Test-For-All}{$n$}
+  \ForAll{$i \in \{0, 1, \cdots, n\}$}
+    \Print $i$
+  \EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+
+```pseudocode
+#| label: alg-test-control-blocks-part-2
+
+\begin{algorithm}
+\caption{Test control blocks - Part 2}
+\begin{algorithmic}
+\Procedure{Test-While}{$n$}
+  \State $i \gets 0$
+  \While{$i < n$}
+    \Print $i$
+    \State $i \gets i + 1$
+  \EndWhile
+\EndProcedure
+\Procedure{Test-Repeat}{$n$}
+  \State $i \gets 0$
+  \Repeat
+    \Print $i$
+    \State $i \gets i + 1$
+  \Until{$i>n$}
+\EndProcedure
+\Procedure{Test-Break-Continue}{$n$}
+  \For{$i = 0$ \To $2n$}
+    \If{$i < n/2$}
+      \Continue
+    \ElsIf{$i > n$}
+      \Break
+    \EndIf
+    \Print $i$
+  \EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+
+## Test statements and comments
+
+Test statements and comments is shown as @alg-test-statements-and-comments.
+
+```pseudocode
+#| label: alg-test-statements-and-comments
+
+\begin{algorithm}
+\caption{Test statements and comments}
+\begin{algorithmic}
+\Procedure{Test-Statements}{}
+  \State This line is a normal statement
+  \Print \texttt{`this is print statement'}
+  \Return $retval$
+\EndProcedure
+\Procedure{Test-Comments}{} \Comment{comment for Procedure}
+  \State a statement \Comment{inline comment}
+  \State \Comment{line comment}
+  \If{some condition}\Comment{comment for if}
+    \Return \True \Comment{another inline comment}
+  \Else \Comment{comment for else}
+    \Return \False \Comment{yet another inline comment}
+  \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
