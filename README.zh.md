@@ -9,9 +9,6 @@
 
 一个用于在 `html` 和 `pdf` 格式输出中渲染伪代码的 Quarto 扩展。`html` 格式基于 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 实现，`pdf` 格式基于 `algorithm` 和 `algpseudocode` 包实现。
 
-> **Warning**  
-> `html` 格式使用 Mathjax 3，可能与使用 Mathjax 2 的文档存在冲突。
-
 ## 安装
 
 ```bash
@@ -104,6 +101,37 @@ Quicksort algorithm is shown as @alg-quicksort.
 > 如果在伪代码直接指定方式方式，例如 `\begin{algorithm}[htb!]`，则 `pdf-placement` 参数将被忽略。  
 > 如果在伪代码直接指定是否显示行号，例如 `\begin{algorithmic}[1]`，则 `pdf-line-number` 参数将被忽略。  
 > 所有这些改变不会影响 `html` 格式输出，建议使用参数选项而非直接修改伪代码。
+
+对于 `html` 格式：
+
+[pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 使用 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/) 渲染数学公式。本扩展在 html body 之后添加 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js)，因此你需要在 html body 之前或 html header 中初始化 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/)。
+
+例如，可以将如下内容添加到文档的头部或 `_quarto.yml` 文件中。
+
+```yml
+format:
+  html:
+    include-in-header:
+      text: |
+        <script>
+        MathJax = {
+          loader: {
+            load: ['[tex]/boldsymbol']
+          },
+          tex: {
+            tags: "all",
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: {
+              '[+]': ['boldsymbol']
+            }
+          }
+        };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+```
 
 对于 `pdf` 格式：
 
