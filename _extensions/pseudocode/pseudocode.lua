@@ -195,7 +195,7 @@ function Pandoc(doc)
     local renders = doc.meta["book"]["render"]
 
     for _, render in pairs(renders) do
-      if pandoc.utils.stringify(render["file"]) == input_qmd_filename and render["number"] then
+      if render["file"] and render["number"] and pandoc.utils.stringify(render["file"]) == input_qmd_filename then
         chapater_level = pandoc.utils.stringify(render["number"])
       end
     end
