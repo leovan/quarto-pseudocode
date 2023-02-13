@@ -24,7 +24,7 @@ quarto add leovan/quarto-pseudocode
 
 将如下内容添加到文档的头部或 `_quarto.yml` 文件中：
 
-```
+```yml
 filters:
   - pseudocode
 ```
@@ -39,6 +39,8 @@ filters:
 #| html-line-number: true
 #| html-line-number-punc: ":"
 #| html-no-end: false
+#| pdf-placement: "htb!"
+#| pdf-line-number: true
 
 \begin{algorithm}
 \caption{Quicksort}
@@ -95,26 +97,39 @@ Quicksort algorithm is shown as @alg-quicksort.
 | `html-line-number`       | true     | `html` | pseudocode.js 中的 `lineNumber`          |
 | `html-line-number-punc`  | ":"      | `html` | pseudocode.js 中的 `lineNumberPunc`      |
 | `html-no-end`            | false    | `html` | pseudocode.js 中的 `noEnd`               |
+| `pdf-placement`          |          | `pdf`  | 伪代码在文本中的放置方式                 |
+| `pdf-line-number`        | true     | `pdf`  | 是否显示行号                             |
+
+> **Note**  
+> 如果在伪代码直接指定方式方式，例如 `\begin{algorithm}[htb!]`，则 `pdf-placement` 参数将被忽略。  
+> 如果在伪代码直接指定是否显示行号，例如 `\begin{algorithmic}[1]`，则 `pdf-line-number` 参数将被忽略。  
+> 所有这些改变不会影响 `html` 格式输出，建议使用参数选项而非直接修改伪代码。
+
+对于 `pdf` 格式：
+
+1. `\numberwithin{algorithm}{chapter}` 可以在 `book` 类型项目中将第 `x` 章中伪代码标题序号改变为 `x.n`。
+2. `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` 可以改变注释的显示方式。
+
+将这些内容添加到文档的头部或 `_quarto.yml` 文件中。
+
+```yml
+format:
+  pdf:
+    include-before-body:
+      text: |
+        \numberwithin{algorithm}{chapter}
+        \algrenewcommand{\algorithmiccomment}[1]{\hskip3em$\rightarrow$ #1}
+```
 
 将如下内容添加到文档的头部或 `_metadata.yml` 文件中，可以将 `Algorithm` 转换为本地语言，例如中文的 `算法`。
 
-```
+```yml
 pseudocode:
   alg-title: "算法"
   alg-prefix: "算法"
 ```
 
 `alg-title` 用于伪代码的标题，`alg-prefix` 用于引用。
-
-对于 `book` 类型项目，将如下内容添加到文档的头部或 `_quarto.yml` 文件中，在第 `x` 章中伪代码标题序号将变为 `x.n`。
-
-```
-format:
-  pdf:
-    include-before-body:
-      text: |
-        \numberwithin{algorithm}{chapter}
-```
 
 ## 示例
 

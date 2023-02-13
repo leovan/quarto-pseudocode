@@ -14,7 +14,9 @@ Test text-style is shown as @alg-test-text-style.
 #| html-comment-delimiter: "//"
 #| html-line-number: true
 #| html-line-number-punc: ":"
-#| html-no-end: true
+#| html-no-end: false
+#| pdf-placement: "htb!"
+#| pdf-line-number: true
 
 \begin{algorithm}
 \caption{Test text-style}
@@ -50,6 +52,7 @@ Test atoms is shown as @alg-test-atoms.
 #| label: alg-test-atoms
 #| html-line-number: false
 #| html-no-end: false
+#| pdf-line-number: false
 
 \begin{algorithm}
 \caption{Test atoms}

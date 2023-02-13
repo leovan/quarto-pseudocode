@@ -14,20 +14,20 @@ local function extract_source_code_options(source_code, option_type)
   local found_source_code = false
 
   for str in string.gmatch(source_code, "([^\n]*)\n?") do
-    if (string.match(str, "^#|.*") or string.gsub(str, "%s", "") == "") and not found_source_code then
-      if string.match(str, "^#|%s+[" .. option_type .. "|label].*") then
-        str = string.gsub(str, "^#|%s+", "")
+    if (string.match(str, "^%s*#|.*") or string.gsub(str, "%s", "") == "") and not found_source_code then
+      if string.match(str, "^%s*#|%s+[" .. option_type .. "|label].*") then
+        str = string.gsub(str, "^%s*#|%s+", "")
         local idx_start, idx_end = string.find(str, ":%s*")
 
-        if idx_start and idx_end then
+        if idx_start and idx_end and idx_end + 1 < #str then
           k = string.sub(str, 1, idx_start - 1)
           v = string.sub(str, idx_end + 1)
-
-          k = string.gsub(k, option_type, "data")
           v = string.gsub(v, "^\"%s*", "")
           v = string.gsub(v, "%s*\"$", "")
 
           options[k] = v
+        else
+          quarto.log.warning("Invalid pseducode option: " .. str)
         end
       end
     else
@@ -44,13 +44,24 @@ local function render_pseudocode_block_html(el, alg_title, chapter_level, pseudo
 
   local options, source_code = extract_source_code_options(el.text, "html")
 
+  source_code = string.gsub(source_code, "%s*\\begin{algorithm}[^\n]+", "\\begin{algorithm}")
+  source_code = string.gsub(source_code, "%s*\\begin{algorithmic}[^\n]+", "\\begin{algorithmic}")
+
   local alg_id = options["label"]
   options["label"] = nil
-  options["data-alg-title"] = alg_title
-  options["data-pseudocode-index"] = pseudocode_index
+  options["html-alg-title"] = alg_title
+  options["html-pseudocode-index"] = pseudocode_index
 
   if chapter_level then
-    options["data-chapter-level"] = chapter_level
+    options["html-chapter-level"] = chapter_level
+  end
+
+  local data_options = {}
+  for k, v in pairs(options) do
+    if string.match(k, "^html-") then
+      data_k = string.gsub(k, "^html", "data")
+      data_options[data_k] = v
+    end
   end
 
   local inner_el = pandoc.Div(source_code)
@@ -60,7 +71,7 @@ local function render_pseudocode_block_html(el, alg_title, chapter_level, pseudo
   local outer_el = pandoc.Div(inner_el)
   outer_el.attr.classes = pandoc.List()
   outer_el.attr.classes:insert("pseudocode-container")
-  outer_el.attr.attributes = options
+  outer_el.attr.attributes = data_options
 
   if alg_id then
     outer_el.attr.identifier = alg_id
@@ -75,8 +86,16 @@ local function render_pseudocode_block_latex(el, alg_title)
 
   local options, source_code = extract_source_code_options(el.text, "pdf")
 
+  if options["pdf-placement"] then
+    source_code = string.gsub(source_code, "\\begin{algorithm}%s*\n", "\\begin{algorithm}[" .. options["pdf-placement"] .. "]\n")
+  end
+
+  if not options["pdf-line-number"] or options["pdf-line-number"] == "true" then
+    source_code = string.gsub(source_code, "\\begin{algorithmic}%s*\n", "\\begin{algorithmic}[1]\n")
+  end
+
   if options["label"] then
-    source_code = string.gsub(source_code, "\\begin{algorithmic}", "\\label{" .. options["label"] .. "}\n\\begin{algorithmic}[1]")
+    source_code = string.gsub(source_code, "\\begin{algorithmic}", "\\label{" .. options["label"] .. "}\n\\begin{algorithmic}")
   end
 
   el = pandoc.RawInline("latex", source_code)

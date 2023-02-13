@@ -5,9 +5,9 @@ book:
   title: "Quarto Pseudocode Extension Book Example"
   author: "范叶亮 | Leo Van"
   chapters:
-      - index.qmd
-      - 01-introduction.qmd
-      - 02-examples.qmd
+    - index.qmd
+    - 01-introduction.qmd
+    - 02-examples.qmd
 
 filters:
   - pseudocode
@@ -22,16 +22,17 @@ format:
         \usepackage{xeCJK}
     include-before-body:
       text: |
-        \newcommand{\Print}{\State \textbf{print}}
+        \renewcommand{\Return}{\State \textbf{return}~}
+        \newcommand{\Print}{\State \textbf{print}~}
         \newcommand{\Break}{\State \textbf{break}}
         \newcommand{\Continue}{\State \textbf{continue}}
         \newcommand{\True}{\textbf{true}}
         \newcommand{\False}{\textbf{false}}
-        \renewcommand{\And}{\textbf{and}}
-        \newcommand{\Or}{\textbf{or}}
-        \renewcommand{\Not}{\textbf{not}}
-        \newcommand{\To}{\textbf{to}}
-        \newcommand{\DownTo}{\textbf{downto}}
+        \renewcommand{\And}{\textbf{and}~}
+        \newcommand{\Or}{\textbf{or}~}
+        \renewcommand{\Not}{\textbf{not}~}
+        \newcommand{\To}{\textbf{to}~}
+        \newcommand{\DownTo}{\textbf{downto}~}
         \numberwithin{algorithm}{chapter}
     pdf-engine: xelatex
     toc-depth: 2

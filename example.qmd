@@ -13,17 +13,19 @@ format:
         \usepackage{xeCJK}
     include-before-body:
       text: |
-        \newcommand{\Print}{\State \textbf{print}}
+        \renewcommand{\Return}{\State \textbf{return}~}
+        \newcommand{\Print}{\State \textbf{print}~}
         \newcommand{\Break}{\State \textbf{break}}
         \newcommand{\Continue}{\State \textbf{continue}}
         \newcommand{\True}{\textbf{true}}
         \newcommand{\False}{\textbf{false}}
-        \renewcommand{\And}{\textbf{and}}
-        \newcommand{\Or}{\textbf{or}}
-        \renewcommand{\Not}{\textbf{not}}
-        \newcommand{\To}{\textbf{to}}
-        \newcommand{\DownTo}{\textbf{downto}}
+        \renewcommand{\And}{\textbf{and}~}
+        \newcommand{\Or}{\textbf{or}~}
+        \renewcommand{\Not}{\textbf{not}~}
+        \newcommand{\To}{\textbf{to}~}
+        \newcommand{\DownTo}{\textbf{downto}~}
     pdf-engine: xelatex
+    keep-tex: true
 ---
 
 ## Test text-style
@@ -36,7 +38,9 @@ Test text-style is shown as @alg-test-text-style.
 #| html-comment-delimiter: "//"
 #| html-line-number: true
 #| html-line-number-punc: ":"
-#| html-no-end: true
+#| html-no-end: false
+#| pdf-placement: "htb!"
+#| pdf-line-number: true
 
 \begin{algorithm}
 \caption{Test text-style}
@@ -71,7 +75,8 @@ Test atoms is shown as @alg-test-atoms.
 ```pseudocode
 #| label: alg-test-atoms
 #| html-line-number: false
-#| html-no-end: false
+#| html-no-end: true
+#| pdf-line-number: false
 
 \begin{algorithm}
 \caption{Test atoms}

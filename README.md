@@ -24,7 +24,7 @@ This will install the extension under the `_extensions` subdirectory. If you're 
 
 Put this in the header of your document, or in the `_quarto.yml` file.
 
-```
+```yml
 filters:
   - pseudocode
 ```
@@ -39,6 +39,8 @@ Then you can put the pseudocode in a code block marked with `pseudocode`.
 #| html-line-number: true
 #| html-line-number-punc: ":"
 #| html-no-end: false
+#| pdf-placement: "htb!"
+#| pdf-line-number: true
 
 \begin{algorithm}
 \caption{Quicksort}
@@ -95,26 +97,39 @@ Options for pseudocode share the same format like R or Python code.
 | `html-line-number`       | true     | `html` | `lineNumber` in pseudocode.js                            |
 | `html-line-number-punc`  | ":"      | `html` | `lineNumberPunc`in pseudocode.js                         |
 | `html-no-end`            | false    | `html` | `noEnd` in pseudocode.js                                 |
+| `pdf-placement`          |          | `pdf`  | placement of the pseudocode in text                      |
+| `pdf-line-number`        | true     | `pdf`  | show line number                                         |
+
+> **Note**  
+> If set the placement in pseudocode, such as `\begin{algorithm}[htb!]`, then `pdf-placement` option will be ignored.  
+> If set show line number or not in pseudocode, such as `\begin{algorithmic}[1]`, then `pdf-line-number` option will be ignored.  
+> All these changes won't affect the output of `html` format. We recommend you use options rather than modify pseudocode directly.
+
+For `pdf` format:
+
+1. `\numberwithin{algorithm}{chapter}` will add chapter level before pseudocode caption in `book` type project, like `x.n` in chapter `x`.
+2. `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` will change the form in witch comments are displayed.
+
+Put these in the header of your document, or in the `_quarto.yml` file.
+
+```yml
+format:
+  pdf:
+    include-before-body:
+      text: |
+        \numberwithin{algorithm}{chapter}
+        \algrenewcommand{\algorithmiccomment}[1]{\hskip3em$\rightarrow$ #1}
+```
 
 You can change the `Algorithm` word to native language, such as `算法` in Chinese, by putting this in the header of your document, or in the `_metadata.yml` file.
 
-```
+```yml
 pseudocode:
   alg-title: "算法"
   alg-prefix: "算法"
 ```
 
 `alg-title` is used for pseudocode caption and `alg-prefix` is used for cross reference.
-
-For `book` type project, pseudocode caption count will be like `x.n` in chapter `x`, by putting this in the header of your document, or in the `_quarto.yml` file.
-
-```
-format:
-  pdf:
-    include-before-body:
-      text: |
-        \numberwithin{algorithm}{chapter}
-```
 
 ## Examples
 

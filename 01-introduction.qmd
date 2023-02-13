@@ -8,7 +8,9 @@ Quicksort algorithm is shown as @alg-quicksort.
 #| html-comment-delimiter: "//"
 #| html-line-number: true
 #| html-line-number-punc: ":"
-#| html-no-end: true
+#| html-no-end: false
+#| pdf-placement: "htb!"
+#| pdf-line-number: true
 
 \begin{algorithm}
 \caption{Quicksort}
