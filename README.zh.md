@@ -161,8 +161,9 @@ pseudocode:
 
 ## 示例
 
-1. 一个单文档的最小示例：[example.qmd](example.qmd)。
-2. 一个 `book` 类型工程的最小示例：[_quarto.yml](_quarto.yml)。
+1. 单文档（HTML 和 PDF 格式）：[examples/simple/simple.qmd](examples/simple/simple.qmd)。
+2. 书籍文档（HTML 和 PDF 格式）：[examples/book/_quarto.yml](examples/book/_quarto.yml)。
+3. Beamer 文档（PDF 格式）：[examples/beamer/beamer.qmd](examples/beamer/beamer.qmd)。
 
 ## 版权
 

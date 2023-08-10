@@ -161,8 +161,9 @@ pseudocode:
 
 ## Examples
 
-1. A minimal example for single document: [example.qmd](example.qmd).
-2. A minimal example for `book` type project: [_quarto.yml](_quarto.yml).
+1. Single document (HTML and PDF): [examples/simple/simple.qmd](examples/simple/simple.qmd).
+2. Book document (HTML and PDF): [examples/book/_quarto.yml](examples/book/_quarto.yml).
+3. Beamer document (PDF): [examples/beamer/beamer.qmd](examples/beamer/beamer.qmd).
 
 ## License
 

@@ -218,3 +218,55 @@ Test statements and comments is shown as @alg-test-statements-and-comments.
 \end{algorithmic}
 \end{algorithm}
 ```
+
+## Test pseudocode in custom block
+
+::: {.callout-note}
+This feature requires quarto v1.4.
+:::
+
+::: {.content-visible when-format="html"}
+```pseudocode
+#| label: alg-test-content-visible-html
+
+\begin{algorithm}
+\caption{Test content visible}
+\begin{algorithmic}
+\Procedure{Test-Content-Visible}{}
+  \State ONLY IN HTML FORMAT
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+:::
+
+::: {.content-visible when-format="pdf"}
+```pseudocode
+#| label: alg-test-content-visible-pdf
+
+\begin{algorithm}
+\caption{Test content visible}
+\begin{algorithmic}
+\Procedure{Test-Content-Visible}{}
+  \State ONLY IN PDF FORMAT
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+:::
+
+::: {.callout-note}
+```pseudocode
+#| label: alg-test-callout
+#| pdf-placement: "H"
+
+\begin{algorithm}
+\caption{Test callout}
+\begin{algorithmic}
+\Procedure{Test-Callout}{}
+  \State CALLOUT TEST
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+:::

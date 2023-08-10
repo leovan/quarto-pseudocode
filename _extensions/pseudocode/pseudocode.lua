@@ -8,14 +8,14 @@ local function ensure_latex_deps()
   quarto.doc.use_latex_package("algpseudocode")
 end
 
-local function extract_source_code_options(source_code, option_type)
+local function extract_source_code_options(source_code, render_type)
   local options = {}
   local source_codes = {}
   local found_source_code = false
 
   for str in string.gmatch(source_code, "([^\n]*)\n?") do
     if (string.match(str, "^%s*#|.*") or string.gsub(str, "%s", "") == "") and not found_source_code then
-      if string.match(str, "^%s*#|%s+[" .. option_type .. "|label].*") then
+      if string.match(str, "^%s*#|%s+[" .. render_type .. "|label].*") then
         str = string.gsub(str, "^%s*#|%s+", "")
         local idx_start, idx_end = string.find(str, ":%s*")
 
@@ -39,106 +39,120 @@ local function extract_source_code_options(source_code, option_type)
   return options, table.concat(source_codes, "\n")
 end
 
-local function render_pseudocode_block_html(el, alg_title, chapter_level, pseudocode_index)
+local function render_pseudocode_block_html(global_options)
   ensure_html_deps()
 
-  local options, source_code = extract_source_code_options(el.text, "html")
+  local filter = {
+    CodeBlock = function(el)
+      if not el.attr.classes:includes("pseudocode") then
+        return el
+      end
 
-  source_code = string.gsub(source_code, "%s*\\begin{algorithm}[^\n]+", "\\begin{algorithm}")
-  source_code = string.gsub(source_code, "%s*\\begin{algorithmic}[^\n]+", "\\begin{algorithmic}")
+      local options, source_code = extract_source_code_options(el.text, "html")
 
-  local alg_id = options["label"]
-  options["label"] = nil
-  options["html-alg-title"] = alg_title
-  options["html-pseudocode-index"] = pseudocode_index
+      source_code = string.gsub(source_code, "%s*\\begin{algorithm}[^\n]+", "\\begin{algorithm}")
+      source_code = string.gsub(source_code, "%s*\\begin{algorithmic}[^\n]+", "\\begin{algorithmic}")
 
-  if chapter_level then
-    options["html-chapter-level"] = chapter_level
-  end
+      local alg_id = options["label"]
+      options["label"] = nil
+      options["html-alg-title"] = global_options.alg_title
+      options["html-pseudocode-index"] = global_options.html_current_index
+      global_options.html_current_index = global_options.html_current_index + 1
 
-  local data_options = {}
-  for k, v in pairs(options) do
-    if string.match(k, "^html-") then
-      data_k = string.gsub(k, "^html", "data")
-      data_options[data_k] = v
+      if global_options.chapter_level then
+        options["html-chapter-level"] = global_options.chapter_level
+      end
+
+      local data_options = {}
+      for k, v in pairs(options) do
+        if string.match(k, "^html-") then
+          data_k = string.gsub(k, "^html", "data")
+          data_options[data_k] = v
+        end
+      end
+
+      local inner_el = pandoc.Div(source_code)
+      inner_el.attr.classes = pandoc.List()
+      inner_el.attr.classes:insert("pseudocode")
+
+      local outer_el = pandoc.Div(inner_el)
+      outer_el.attr.classes = pandoc.List()
+      outer_el.attr.classes:insert("pseudocode-container")
+      outer_el.attr.attributes = data_options
+
+      if alg_id then
+        outer_el.attr.identifier = alg_id
+      end
+
+      return outer_el
     end
-  end
+  }
 
-  local inner_el = pandoc.Div(source_code)
-  inner_el.attr.classes = pandoc.List()
-  inner_el.attr.classes:insert("pseudocode")
-
-  local outer_el = pandoc.Div(inner_el)
-  outer_el.attr.classes = pandoc.List()
-  outer_el.attr.classes:insert("pseudocode-container")
-  outer_el.attr.attributes = data_options
-
-  if alg_id then
-    outer_el.attr.identifier = alg_id
-  end
-
-  return outer_el
+  return filter
 end
 
-local function render_pseudocode_block_latex(el, alg_title)
+local function render_pseudocode_block_latex(global_options)
   ensure_latex_deps()
-  quarto.doc.include_text("before-body", "\\floatname{algorithm}{" .. alg_title .. "}")
+  quarto.doc.include_text("before-body", "\\floatname{algorithm}{" .. global_options.alg_title .. "}")
 
-  local options, source_code = extract_source_code_options(el.text, "pdf")
+  local filter = {
+    CodeBlock = function(el)
+      if not el.attr.classes:includes("pseudocode") then
+        return el
+      end
 
-  if options["pdf-placement"] then
-    source_code = string.gsub(source_code, "\\begin{algorithm}%s*\n", "\\begin{algorithm}[" .. options["pdf-placement"] .. "]\n")
-  end
+      local options, source_code = extract_source_code_options(el.text, "pdf")
 
-  if not options["pdf-line-number"] or options["pdf-line-number"] == "true" then
-    source_code = string.gsub(source_code, "\\begin{algorithmic}%s*\n", "\\begin{algorithmic}[1]\n")
-  end
+      if options["pdf-placement"] then
+        source_code = string.gsub(source_code, "\\begin{algorithm}%s*\n", "\\begin{algorithm}[" .. options["pdf-placement"] .. "]\n")
+      end
 
-  if options["label"] then
-    source_code = string.gsub(source_code, "\\begin{algorithmic}", "\\label{" .. options["label"] .. "}\n\\begin{algorithmic}")
-  end
+      if not options["pdf-line-number"] or options["pdf-line-number"] == "true" then
+        source_code = string.gsub(source_code, "\\begin{algorithmic}%s*\n", "\\begin{algorithmic}[1]\n")
+      end
 
-  el = pandoc.RawInline("latex", source_code)
+      if options["label"] then
+        source_code = string.gsub(source_code, "\\begin{algorithmic}", "\\label{" .. options["label"] .. "}\n\\begin{algorithmic}")
+      end
 
-  return el
-end
-
-local function render_pseudocode_block(el, alg_title, chapter_level, pseudocode_index)
-  if quarto.doc.is_format("html") then
-    el = render_pseudocode_block_html(el, alg_title, chapter_level, pseudocode_index)
-  elseif quarto.doc.is_format("latex") then
-    el = render_pseudocode_block_latex(el, alg_title)
-  end
-
-  return el
-end
-
-local function render_pseudocode_ref_html(doc, alg_prefix, chapater_level)
-  local pseudocodes = {}
-
-  for _, el in pairs(doc.blocks) do
-    if el.t == "Div" and el.attr and el.attr.classes:includes("pseudocode-container") then
-      pseudocodes[el.identifier] = {
-        alg_prefix = el.attr.attributes["data-alg-prefix"] or alg_prefix,
-        chapater_level = chapater_level,
-        pseudocode_index = el.attr.attributes["data-pseudocode-index"]
-      }
+      return pandoc.RawInline("latex", source_code)
     end
+  }
+
+  return filter
+end
+
+local function render_pseudocode_block(global_options)
+  local filter = {
+    CodeBlock = function(el)
+      return el
+    end
+  }
+
+  if quarto.doc.is_format("html") then
+    filter = render_pseudocode_block_html(global_options)
+  elseif quarto.doc.is_format("latex") then
+    filter = render_pseudocode_block_latex(global_options)
   end
 
+  return filter
+end
+
+local function render_pseudocode_ref_html(global_options)
   local filter = {
     Cite = function(el)
       local cite_text = pandoc.utils.stringify(el.content)
-      for k, v in pairs(pseudocodes) do
+
+      for k, v in pairs(global_options.html_identifier_index_mapping) do
         if cite_text == "@" .. k then
           local link_src = "#" .. k
-          local alg_id = v["pseudocode_index"]
+          local alg_id = v
 
-          if v["chapater_level"] then
-            alg_id = v["chapater_level"] .. "." .. alg_id
+          if global_options.chapater_level then
+            alg_id = global_options.chapater_level .. "." .. alg_id
           end
 
-          local link_text = v["alg_prefix"] .. " " .. alg_id
+          local link_text = global_options.alg_prefix .. " " .. alg_id
           return pandoc.Link(link_text, link_src)
         end
       end
@@ -148,13 +162,13 @@ local function render_pseudocode_ref_html(doc, alg_prefix, chapater_level)
   return filter
 end
 
-local function render_pseudocode_ref_latex(alg_prefix)
+local function render_pseudocode_ref_latex(global_options)
   local filter = {
     Cite = function(el)
       local cite_text = pandoc.utils.stringify(el.content)
 
       if string.match(cite_text, "^@alg-") then
-        return pandoc.RawInline("latex", " " .. alg_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "} " )
+        return pandoc.RawInline("latex", " " .. global_options.alg_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "} " )
       end
     end
   }
@@ -162,7 +176,7 @@ local function render_pseudocode_ref_latex(alg_prefix)
   return filter
 end
 
-local function render_pseudocode_ref(doc, alg_prefix, chapater_level)
+local function render_pseudocode_ref(global_options)
   local filter = {
     Cite = function(el)
       return el
@@ -170,45 +184,46 @@ local function render_pseudocode_ref(doc, alg_prefix, chapater_level)
   }
 
   if quarto.doc.is_format("html") then
-    filter = render_pseudocode_ref_html(doc, alg_prefix, chapater_level)
+    filter = render_pseudocode_ref_html(global_options)
   elseif quarto.doc.is_format("latex") then
-    filter = render_pseudocode_ref_latex(alg_prefix)
+    filter = render_pseudocode_ref_latex(global_options)
   end
 
   return filter
 end
 
 function Pandoc(doc)
-  local alg_title = "Algorithm"
-  local alg_prefix = "Algorithm"
-  local pseudocode_index = 1
-  local chapater_level = nil
+  local global_options = {
+    alg_title = "Algorithm",
+    alg_prefix = "Algorithm",
+    chapater_level = nil,
+    html_current_index = 1,
+    html_identifier_index_mapping = {}
+  }
 
   if doc.meta["pseudocode"] then
-    alg_title = pandoc.utils.stringify(doc.meta["pseudocode"]["alg-title"]) or "Algorithm"
-    alg_prefix = pandoc.utils.stringify(doc.meta["pseudocode"]["alg-prefix"]) or "Algorithm"
+    global_options.alg_title = pandoc.utils.stringify(doc.meta["pseudocode"]["alg-title"]) or "Algorithm"
+    global_options.alg_prefix = pandoc.utils.stringify(doc.meta["pseudocode"]["alg-prefix"]) or "Algorithm"
   end
 
-  -- get current chapter level
   if doc.meta["book"] then
     local _, input_qmd_filename = string.match(quarto.doc["input_file"], "^(.-)([^\\/]-%.([^\\/%.]-))$")
     local renders = doc.meta["book"]["render"]
 
     for _, render in pairs(renders) do
       if render["file"] and render["number"] and pandoc.utils.stringify(render["file"]) == input_qmd_filename then
-        chapater_level = pandoc.utils.stringify(render["number"])
+        global_options.chapater_level = pandoc.utils.stringify(render["number"])
       end
     end
   end
 
-  -- render pseudocode blocks
-  for idx, el in pairs(doc.blocks) do
-    if el.t == "CodeBlock" and el.attr and el.attr.classes:includes("pseudocode") then
-      doc.blocks[idx] = render_pseudocode_block(el, alg_title, chapater_level, pseudocode_index)
-      pseudocode_index = pseudocode_index + 1
+  doc = doc:walk(render_pseudocode_block(global_options))
+
+  for _, el in pairs(doc.blocks) do
+    if el.t == "Div" and el.attr and el.attr.classes:includes("pseudocode-container") then
+      global_options.html_identifier_index_mapping[el.identifier] = el.attr.attributes["data-pseudocode-index"]
     end
   end
 
-  -- render pseudocode references
-  return doc:walk(render_pseudocode_ref(doc, alg_prefix, chapater_level))
+  return doc:walk(render_pseudocode_ref(global_options))
 end

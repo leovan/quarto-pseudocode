@@ -1,0 +1,48 @@
+---
+title: "Quarto Pseudocode Extension Example"
+filters:
+  - pseudocode
+format:
+  beamer:
+    include-in-header:
+      text: |
+        \usepackage{xeCJK}
+    pdf-engine: xelatex
+    keep-tex: true
+---
+
+## Test atoms
+
+Test atoms is shown as @alg-test-atoms.
+
+\renewcommand{\Return}{\State \textbf{return}~}
+\newcommand{\Print}{\State \textbf{print}~}
+\newcommand{\Break}{\State \textbf{break}}
+\newcommand{\Continue}{\State \textbf{continue}}
+\newcommand{\True}{\textbf{true}}
+\newcommand{\False}{\textbf{false}}
+\renewcommand{\And}{\textbf{and}~}
+\newcommand{\Or}{\textbf{or}~}
+\renewcommand{\Not}{\textbf{not}~}
+\newcommand{\To}{\textbf{to}~}
+\newcommand{\DownTo}{\textbf{downto}~}
+
+```pseudocode
+#| label: alg-test-atoms
+#| html-line-number: false
+#| html-no-end: true
+#| pdf-line-number: false
+#| pdf-placement: "H"
+
+\begin{algorithm}
+\caption{Test atoms}
+\begin{algorithmic}
+\State \textbf{Specials:} \{ \} \$ \& \# \% \_
+\State \textbf{Bools:} \And \Or \Not \True \False
+\State \textbf{Carriage return:} first line \\ second line
+\State \textbf{Text-symbols:} \textbackslash
+\State \textbf{Quote-symbols:} `single quotes', ``double quotes''
+\State \textbf{Math:} $(\mathcal{C}_m)$, $i \gets i + 1$, $E=mc^2$, \( x^n + y^n = z^n \), $\$$, \(\$\)
+\end{algorithmic}
+\end{algorithm}
+```

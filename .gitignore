@@ -6,7 +6,8 @@
 
 # Quarto
 .quarto/
-/*.html
+/examples/**/*.html
+/examples/**/*.tex
 *.pdf
 *_files/
 _book
