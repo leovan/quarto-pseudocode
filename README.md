@@ -1,5 +1,6 @@
 # Quarto Pseudocode Extension
 
+![Release](https://img.shields.io/github/release/leovan/quarto-pseudocode.svg)
 ![License](https://img.shields.io/github/license/leovan/quarto-pseudocode.svg)
 ![Issues](https://img.shields.io/github/issues/leovan/quarto-pseudocode.svg)
 
