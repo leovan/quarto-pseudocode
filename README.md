@@ -8,7 +8,7 @@
 
 🇺🇸 [README](README.md) | 🇨🇳 [中文说明](README.zh.md)
 
-A Quarto extension to render pseudocode for `html` and `pdf` format output. It's based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) for `html` format, `algorithm` and `algpseudocode` package for `pdf` format.
+A Quarto extension to render pseudocode for `html` and `pdf` document. It's based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) for `html` document, `algorithm` and `algpseudocode` package for `pdf` document.
 
 ## Installing
 
@@ -67,7 +67,7 @@ Then you can put the pseudocode in a code block marked with `pseudocode`.
 ```
 ````
 
-> **Note**  
+> [!NOTE]
 > Use upper camel case format keyword rather than all uppercase format keyword.
 
 Use `@<alg-label>` to do cross reference.
@@ -76,19 +76,19 @@ Use `@<alg-label>` to do cross reference.
 Quicksort algorithm is shown as @alg-quicksort.
 ```
 
-> **Note**  
-> For `book` type project, cross reference in different files is only available with `pdf` format.
+> [!NOTE]
+> For `book` type project, cross reference in different files is only available with `pdf` document.
 
-Pseudocode and cross reference rendered in `html` and `pdf` format are shown as below.
+Pseudocode and cross reference rendered in `html` and `pdf` document are shown as below.
 
-| `html` format                    | `pdf` format                    |
-| :------------------------------: | :-----------------------------: |
-| ![](screenshots/html-format.png) | ![](screenshots/pdf-format.png) |
+| `html` document                    | `pdf` document                    |
+| :--------------------------------: | :-------------------------------: |
+| ![](screenshots/html-document.png) | ![](screenshots/pdf-document.png) |
 
-Options for pseudocode share the same format like R or Python code.
+Parameters for pseudocode share the same format like R or Python code.
 
-| option                   | default  | format | comment                                                  |
-| :----------------------- | :------- | :----- | :------------------------------------------------------- |
+| Parameter                | Default  | Format | Description                                              |
+| ------------------------ | -------- | ------ | -------------------------------------------------------- |
 | `label`                  |          | all    | label for cross reference, must start with `alg-` if has |
 | `html-indent-size`       | "1.2 em" | `html` | `indentSize` in pseudocode.js                            |
 | `html-comment-delimiter` | "//"     | `html` | `commentDelimiter` in pseudocode.js                      |
@@ -98,12 +98,13 @@ Options for pseudocode share the same format like R or Python code.
 | `pdf-placement`          |          | `pdf`  | placement of the pseudocode in text                      |
 | `pdf-line-number`        | true     | `pdf`  | show line number                                         |
 
-> **Note**  
-> If set the placement in pseudocode, such as `\begin{algorithm}[htb!]`, then `pdf-placement` option will be ignored.  
-> If set show line number or not in pseudocode, such as `\begin{algorithmic}[1]`, then `pdf-line-number` option will be ignored.  
-> All these changes won't affect the output of `html` format. We recommend you use options rather than modify pseudocode directly.
+> [!NOTE]
+>
+> 1. If set the placement in pseudocode, such as `\begin{algorithm}[htb!]`, then `pdf-placement` option will be ignored.
+> 2. If set show line number or not in pseudocode, such as `\begin{algorithmic}[1]`, then `pdf-line-number` option will be ignored.
+> 3. All these changes won't affect the output of `html` document. We recommend you use options rather than modify pseudocode directly.
 
-For `html` format:
+For `html` document:
 
 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) render math formulas using either [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/). We add [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) after html body, thus you need initialize [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/) before html body or in html header.
 
@@ -134,7 +135,7 @@ format:
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 ```
 
-For `pdf` format:
+For `pdf` document:
 
 1. `\numberwithin{algorithm}{chapter}` will add chapter level before pseudocode caption in `book` type project, like `x.n` in chapter `x`.
 2. `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` will change the form in witch comments are displayed.
@@ -162,9 +163,9 @@ pseudocode:
 
 ## Examples
 
-1. Single document (HTML and PDF): [examples/simple/simple.qmd](examples/simple/simple.qmd).
-2. Book document (HTML and PDF): [examples/book/_quarto.yml](examples/book/_quarto.yml).
-3. Beamer document (PDF): [examples/beamer/beamer.qmd](examples/beamer/beamer.qmd).
+1. Single document (`html` and `pdf`): [examples/simple/simple.qmd](examples/simple/simple.qmd).
+2. Book document (`html` and `pdf`): [examples/book/_quarto.yml](examples/book/_quarto.yml).
+3. Beamer document (`pdf`): [examples/beamer/beamer.qmd](examples/beamer/beamer.qmd).
 
 ## License
 

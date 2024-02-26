@@ -221,10 +221,6 @@ Test statements and comments is shown as @alg-test-statements-and-comments.
 
 ## Test pseudocode in custom block
 
-::: {.callout-note}
-This feature requires quarto v1.4.
-:::
-
 ::: {.content-visible when-format="html"}
 ```pseudocode
 #| label: alg-test-content-visible-html
