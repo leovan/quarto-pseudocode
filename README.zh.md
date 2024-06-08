@@ -20,6 +20,8 @@ quarto add leovan/quarto-pseudocode
 
 ## 使用
 
+### 添加扩展
+
 将如下内容添加到文档的头部或 `_quarto.yml` 文件中：
 
 ```yml
@@ -27,11 +29,12 @@ filters:
   - pseudocode
 ```
 
-之后将伪代码添加到标记为 `pseudocode` 的代码块中。
+### 伪代码块
+
+将伪代码添加到标记为 `pseudocode` 的代码块中：
 
 ````
 ```pseudocode
-#| label: alg-quicksort
 #| html-indent-size: "1.2em"
 #| html-comment-delimiter: "//"
 #| html-line-number: true
@@ -67,25 +70,29 @@ filters:
 ```
 ````
 
-> [!NOTE]
+> [!IMPORTANT]
 > 使用大驼峰式关键词，而非全大写关键词。
 
-使用 `@<alg-label>` 进行引用。
+### 参数配置
 
+全局参数如下：
+
+| 参数               | 默认值      | 格式 | 注释             |
+| ------------------ | ----------- | ---- | ---------------- |
+| `caption-prefix`   | "Algorithm" | 全部 | 标题前缀         |
+| `reference-prefix` | "Algorithm" | 全部 | 引用前缀         |
+| `caption-number`   | true        | 全部 | 显示内置标题数字 |
+
+将参数添加到文档的头部或 `_metadata.yml` 文件中，例如：
+
+```yml
+pseudocode:
+  caption-prefix: "算法"
+  reference-prefix: "算法"
+  caption-no-number: true
 ```
-Quicksort algorithm is shown as @alg-quicksort.
-```
 
-> [!NOTE]
-> 对于 `book` 类型项目，跨文件引用仅在 `pdf` 文档中可用。
-
-伪代码和应用以 `html` 和 `pdf` 文档的渲染结果如下所示。
-
-| `html` 文档                        | `pdf` 文档                        |
-| :--------------------------------: | :-------------------------------: |
-| ![](screenshots/html-document.png) | ![](screenshots/pdf-document.png) |
-
-伪代码使用的参数格式类似 R 和 Python 代码。
+伪代码参数格式类似 R 和 Python 代码，如下：
 
 | 参数                     | 默认值   | 格式   | 注释                                     |
 | ------------------------ | -------- | ------ | ---------------------------------------- |
@@ -95,20 +102,16 @@ Quicksort algorithm is shown as @alg-quicksort.
 | `html-line-number`       | true     | `html` | pseudocode.js 中的 `lineNumber`          |
 | `html-line-number-punc`  | ":"      | `html` | pseudocode.js 中的 `lineNumberPunc`      |
 | `html-no-end`            | false    | `html` | pseudocode.js 中的 `noEnd`               |
-| `pdf-placement`          |          | `pdf`  | 伪代码在文本中的放置方式                 |
+| `pdf-placement`          | "H"      | `pdf`  | 伪代码在文本中的放置方式                 |
 | `pdf-line-number`        | true     | `pdf`  | 是否显示行号                             |
 
 > [!NOTE]
 >
-> 1. 如果在伪代码直接指定方式方式，例如 `\begin{algorithm}[htb!]`，则 `pdf-placement` 参数将被忽略。
-> 2. 如果在伪代码直接指定是否显示行号，例如 `\begin{algorithmic}[1]`，则 `pdf-line-number` 参数将被忽略。
+> 1. 如果在伪代码块中直接指定方式方式，例如 `\begin{algorithm}[htb!]`，则 `pdf-placement` 参数将被忽略。
+> 2. 如果在伪代码块中直接指定是否显示行号，例如 `\begin{algorithmic}[1]`，则 `pdf-line-number` 参数将被忽略。
 > 3. 所有这些改变不会影响 `html` 文档，建议使用参数选项而非直接修改伪代码。
 
-对于 `html` 文档：
-
-[pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 使用 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/) 渲染数学公式。本扩展在 html body 之后添加 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js)，因此你需要在 html body 之前或 html header 中初始化 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/)。
-
-例如，可以将如下内容添加到文档的头部或 `_quarto.yml` 文件中。
+对于 `html` 文档，[pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 使用 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/) 渲染数学公式。本扩展在 html body 之后添加 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js)，因此你需要在 html body 之前或 html header 中初始化 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/)。将相关内容添加到文档的头部或 `_quarto.yml` 文件中：
 
 ```yml
 format:
@@ -135,37 +138,120 @@ format:
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 ```
 
-对于 `pdf` 文档：
-
-1. `\numberwithin{algorithm}{chapter}` 可以在 `book` 类型项目中将第 `x` 章中伪代码标题序号改变为 `x.n`。
-2. `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` 可以改变注释的显示方式。
-
-将这些内容添加到文档的头部或 `_quarto.yml` 文件中。
+对于 `pdf` 文档，在 `book` 类型项目中将第 `x` 章中伪代码标题序号将由 `Algorithm n` 变为 `Algorithm x.n`。将 `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` 添加到文档的头部或 `_quarto.yml` 文件中可以改变注释的显示方式：
 
 ```yml
 format:
   pdf:
     include-before-body:
       text: |
-        \numberwithin{algorithm}{chapter}
         \algrenewcommand{\algorithmiccomment}[1]{\hskip3em$\rightarrow$ #1}
 ```
 
-将如下内容添加到文档的头部或 `_metadata.yml` 文件中，可以将 `Algorithm` 转换为本地语言，例如中文的 `算法`。
+### 交叉引用
 
-```yml
-pseudocode:
-  alg-title: "算法"
-  alg-prefix: "算法"
+#### 内置交叉引用
+
+在伪代码块中设置 `label`，并且需要以 `alg-` 开头：
+
+````
+```pseudocode
+#| label: alg-quicksort
+...
+
+\begin{algorithm}
+\caption{Quicksort}
+\begin{algorithmic}
+...
+\end{algorithmic}
+\end{algorithm}
+```
+````
+
+在正文中使用 `@<label>` 进行交叉引用：
+
+```
+Quicksort algorithm is shown as @alg-quicksort.
 ```
 
-`alg-title` 用于伪代码的标题，`alg-prefix` 用于引用。
+> [!WARNING]
+> 对于 `book` 类型项目，跨文件引用仅在 `pdf` 文档中可用。
+
+#### Quarto 自定义交叉引用
+
+在文档的头部或 `_quarto.yml` 文件中定义用于伪代码的自定义交叉引用：
+
+```yaml
+crossref:
+  custom:
+    - kind: float
+      key: algo
+      reference-prefix: "Algorithm"
+      caption-prefix: "Algorithm"
+      latex-env: algo
+      latex-list-of-description: Algorithm
+```
+
+> [!IMPORTANT]
+> 请勿将 `key` 设置为内置应用所使用的 `alg`。
+
+使用 [Quarto 自定义交叉引用](https://quarto.org/docs/authoring/cross-references-custom.html) 包围伪代码块：
+
+````
+::: {#algo-quicksort}
+
+```pseudocode
+...
+
+\begin{algorithm}
+\caption{Quicksort}
+\begin{algorithmic}
+...
+\end{algorithmic}
+\end{algorithm}
+```
+
+Quicksort
+
+:::
+````
+
+> [!IMPORTANT]
+>
+> 1. 请勿设置 `label`，以避免与内置引用冲突。
+> 2. 请将全局设置 `caption-no-number` 置为 `true`，以避免在伪代码内置标题和 Quarto 自定义交叉引用标题中显式不一致的数字。
+> 3. 在伪代码块和 Quarto 自定义交叉引用中同时设置标题以取得最佳效果。
+
+在正文中使用 `@<label>` 进行交叉引用：
+
+```
+Quicksort algorithm is shown as @algo-quicksort.
+```
+
+### 区别
+
+1. Quarto 自定义交叉引用会额外添加一个类似图片的标题，并且其中的数字和伪代码内置标题中的数字可能不一致。
+2. 对于 `book` 类型项目，内置交叉引用跨文件引用仅在 `pdf` 文档中可用。Quarto 自定义交叉引用则在 `html` 和 `pdf` 文档中均可用。
+
+目前，除了在 `book` 类型项目 `html` 文档中有跨文件引用需求外，仍建议使用内置交叉引用以取得最佳效果。
+
+> [!CAUTION]
+> 请勿在同一个项目中使用不同类型的交叉引用。
 
 ## 示例
 
-1. 单文档（`html` 和 `pdf`）：[examples/simple/simple.qmd](examples/simple/simple.qmd)。
-2. 书籍文档（`html` 和 `pdf`）：[examples/book/_quarto.yml](examples/book/_quarto.yml)。
-3. Beamer 文档（`pdf`）：[examples/beamer/beamer.qmd](examples/beamer/beamer.qmd)。
+伪代码在 `html` 和 `pdf` 文档中的渲染结果如下所示。
+
+| `html` 文档                        | `pdf` 文档                        |
+| :--------------------------------: | :-------------------------------: |
+| ![](screenshots/html-document.png) | ![](screenshots/pdf-document.png) |
+
+更详细的示例请参见：
+
+1. 单文档（`html` 和 `pdf`）：[examples/simple](examples/simple)。
+2. 书籍文档（`html` 和 `pdf`）：[examples/book](examples/book)。
+3. Beamer 文档（`pdf`）：[examples/beamer](examples/beamer)。
+4. 交叉引用示例（`html` 和 `pdf`）：[examples/cross-reference](examples/cross-reference)。
 
 ## 版权
 

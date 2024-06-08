@@ -2,7 +2,7 @@
 
 ## Test cross reference in different files
 
-Quicksort algorithm is shown as @alg-quicksort, cross reference in different files is only available with `pdf` format.
+Quicksort algorithm is shown as @alg-quicksort. Build-in cross reference in different files works only with `pdf` format.
 
 ## Test text-style
 
@@ -174,3 +174,5 @@ Test statements and comments is shown as @alg-test-statements-and-comments.
 \end{algorithmic}
 \end{algorithm}
 ```
+
+\listofalgorithms{}

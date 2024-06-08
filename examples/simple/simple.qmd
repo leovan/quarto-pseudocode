@@ -3,8 +3,9 @@ title: "Quarto Pseudocode Extension Example"
 filters:
   - pseudocode
 pseudocode:
-  alg-title: "算法"
-  alg-prefix: "算法"
+  caption-prefix: "Algorithm"
+  reference-prefix: "Algorithm"
+  caption-number: true
 format:
   html:
     include-in-header:
@@ -222,6 +223,8 @@ Test statements and comments is shown as @alg-test-statements-and-comments.
 ## Test pseudocode in custom block
 
 ::: {.content-visible when-format="html"}
+Test content visible in html format is show as @alg-test-content-visible-html.
+
 ```pseudocode
 #| label: alg-test-content-visible-html
 
@@ -237,6 +240,8 @@ Test statements and comments is shown as @alg-test-statements-and-comments.
 :::
 
 ::: {.content-visible when-format="pdf"}
+Test content visible in pdf format is show as @alg-test-content-visible-pdf.
+
 ```pseudocode
 #| label: alg-test-content-visible-pdf
 
@@ -250,6 +255,8 @@ Test statements and comments is shown as @alg-test-statements-and-comments.
 \end{algorithm}
 ```
 :::
+
+Test callout is show as @alg-test-callout.
 
 ::: {.callout-note}
 ```pseudocode

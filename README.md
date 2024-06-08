@@ -20,18 +20,21 @@ This will install the extension under the `_extensions` subdirectory. If you're 
 
 ## Using
 
-Put this in the header of your document, or in the `_quarto.yml` file.
+### Adding Extension
+
+Add this in the header of your document, or in the `_quarto.yml` file:
 
 ```yml
 filters:
   - pseudocode
 ```
 
-Then you can put the pseudocode in a code block marked with `pseudocode`.
+### Pseudocode Block
+
+Add the pseudocode in a code block marked with `pseudocode`:
 
 ````
 ```pseudocode
-#| label: alg-quicksort
 #| html-indent-size: "1.2em"
 #| html-comment-delimiter: "//"
 #| html-line-number: true
@@ -67,25 +70,29 @@ Then you can put the pseudocode in a code block marked with `pseudocode`.
 ```
 ````
 
-> [!NOTE]
+> [!IMPORTANT]
 > Use upper camel case format keyword rather than all uppercase format keyword.
 
-Use `@<alg-label>` to do cross reference.
+### Parameters
 
+Global parameters are show as below:
+
+| Parameter           | Default     | Format | Description                     |
+| ------------------- | ----------- | ------ | ------------------------------- |
+| `caption-prefix`    | "Algorithm" | all    | prefix for caption              |
+| `reference-prefix`  | "Algorithm" | all    | prefix for reference            |
+| `caption-number`    | true        | all    | show number in build-in caption |
+
+Add global parameters in the header of your document, or in the `_quarto.yml` file:
+
+```yml
+pseudocode:
+  caption-prefix: "Algorithm"
+  reference-prefix: "Algorithm"
+  caption-number: true
 ```
-Quicksort algorithm is shown as @alg-quicksort.
-```
 
-> [!NOTE]
-> For `book` type project, cross reference in different files is only available with `pdf` document.
-
-Pseudocode and cross reference rendered in `html` and `pdf` document are shown as below.
-
-| `html` document                    | `pdf` document                    |
-| :--------------------------------: | :-------------------------------: |
-| ![](screenshots/html-document.png) | ![](screenshots/pdf-document.png) |
-
-Parameters for pseudocode share the same format like R or Python code.
+Parameters for pseudocode share the same format like R or Python code:
 
 | Parameter                | Default  | Format | Description                                              |
 | ------------------------ | -------- | ------ | -------------------------------------------------------- |
@@ -95,20 +102,16 @@ Parameters for pseudocode share the same format like R or Python code.
 | `html-line-number`       | true     | `html` | `lineNumber` in pseudocode.js                            |
 | `html-line-number-punc`  | ":"      | `html` | `lineNumberPunc`in pseudocode.js                         |
 | `html-no-end`            | false    | `html` | `noEnd` in pseudocode.js                                 |
-| `pdf-placement`          |          | `pdf`  | placement of the pseudocode in text                      |
+| `pdf-placement`          | "H"      | `pdf`  | placement of the pseudocode in text                      |
 | `pdf-line-number`        | true     | `pdf`  | show line number                                         |
 
 > [!NOTE]
 >
 > 1. If set the placement in pseudocode, such as `\begin{algorithm}[htb!]`, then `pdf-placement` option will be ignored.
 > 2. If set show line number or not in pseudocode, such as `\begin{algorithmic}[1]`, then `pdf-line-number` option will be ignored.
-> 3. All these changes won't affect the output of `html` document. We recommend you use options rather than modify pseudocode directly.
+> 3. All these changes won't affect the output of `html` document. We recommend you set the parameters rather than modify pseudocode directly.
 
-For `html` document:
-
-[pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) render math formulas using either [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/). We add [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) after html body, thus you need initialize [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/) before html body or in html header.
-
-For example, you can put this in the header of your document, or in the `_quarto.yml` file.
+For `html` document, [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) render math formulas using either [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/). We add [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) after html body, thus you need initialize [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/) before html body or in html header. Add this in the header of your document, or in the `_quarto.yml` file.
 
 ```yml
 format:
@@ -135,12 +138,7 @@ format:
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 ```
 
-For `pdf` document:
-
-1. `\numberwithin{algorithm}{chapter}` will add chapter level before pseudocode caption in `book` type project, like `x.n` in chapter `x`.
-2. `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` will change the form in witch comments are displayed.
-
-Put these in the header of your document, or in the `_quarto.yml` file.
+For `pdf` document, pseudocode caption in `book` type project will be changed from `Algorithm n` to `Algorithm x.n` in chapter `x`. Add `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` in the header of your document, or in the `_quarto.yml` file will change the form in which comments are displayed:
 
 ```yml
 format:
@@ -151,21 +149,110 @@ format:
         \algrenewcommand{\algorithmiccomment}[1]{\hskip3em$\rightarrow$ #1}
 ```
 
-You can change the `Algorithm` word to native language, such as `算法` in Chinese, by putting this in the header of your document, or in the `_metadata.yml` file.
+### Cross Reference
 
-```yml
-pseudocode:
-  alg-title: "算法"
-  alg-prefix: "算法"
+#### Build-in Cross Reference
+
+Set the `label` in pseudocode, and it must start with `alg-`:
+
+````
+```pseudocode
+#| label: alg-quicksort
+...
+
+\begin{algorithm}
+\caption{Quicksort}
+\begin{algorithmic}
+...
+\end{algorithmic}
+\end{algorithm}
+```
+````
+
+Use `@<label>` to do cross reference:
+
+```
+Quicksort algorithm is shown as @alg-quicksort.
 ```
 
-`alg-title` is used for pseudocode caption and `alg-prefix` is used for cross reference.
+> [!WARNING]
+> For `book` type project, build-in cross reference in different files works only with `pdf` format.
+
+#### Quarto Custom Cross Reference
+
+Add custom cross reference for pseudocode in the header of your document, or in the `_quarto.yml` file:
+
+```yaml
+crossref:
+  custom:
+    - kind: float
+      key: algo
+      reference-prefix: "Algorithm"
+      caption-prefix: "Algorithm"
+      latex-env: algo
+      latex-list-of-description: Algorithm
+```
+
+> [!IMPORTANT]
+> Do not set `key` to `alg`, which is used for build-in reference.
+
+Use [Quarto custom cross reference](https://quarto.org/docs/authoring/cross-references-custom.html) to surround the pseudocode:
+
+````
+::: {#algo-quicksort}
+
+```pseudocode
+...
+
+\begin{algorithm}
+\caption{Quicksort}
+\begin{algorithmic}
+...
+\end{algorithmic}
+\end{algorithm}
+```
+
+Quicksort
+
+:::
+````
+
+> [!IMPORTANT]
+>
+> 1. Do not set `label` to avoid conflict with build-in cross reference.
+> 2. Set the global parameter `caption-no-number` to `true` to avoid show different numbers in pseudocode build-in caption and Quarto cross reference caption.
+> 3. Set both captions in pseudocode and Quarto custom cross reference to achieve best effect.
+
+Use `@<label>` to do cross reference.
+
+```
+Quicksort algorithm is shown as @algo-quicksort.
+```
+
+#### Difference
+
+1. Quarto custom cross reference will add an extra caption like figure, in which number may not be same as pseudocode build-in caption.
+2. Build-in cross reference in different files is only available with `pdf` document for `book` type project. Quarto custom cross reference works in both `html` and `pdf` document.
+
+Now, expect cross reference in different files with `pdf` document for `book` type project, we strongly recommend use build-in cross reference to achieve best effect.
+
+> [!CAUTION]
+> Do not use different type of cross reference in the same project.
 
 ## Examples
 
-1. Single document (`html` and `pdf`): [examples/simple/simple.qmd](examples/simple/simple.qmd).
-2. Book document (`html` and `pdf`): [examples/book/_quarto.yml](examples/book/_quarto.yml).
-3. Beamer document (`pdf`): [examples/beamer/beamer.qmd](examples/beamer/beamer.qmd).
+Pseudocode and cross reference rendered in `html` and `pdf` document are shown as below.
+
+| `html` document                    | `pdf` document                    |
+| :--------------------------------: | :-------------------------------: |
+| ![](screenshots/html-document.png) | ![](screenshots/pdf-document.png) |
+
+More examples please refer:
+
+1. Single document (`html` and `pdf`): [examples/simple](examples/simple).
+2. Book document (`html` and `pdf`): [examples/book](examples/book).
+3. Beamer document (`pdf`): [examples/beamer](examples/beamer).
+4. Cross reference example (`html` and `pdf`): [examples/cross-reference](examples/cross-reference).
 
 ## License
 

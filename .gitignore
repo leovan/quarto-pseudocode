@@ -6,9 +6,12 @@
 
 # Quarto
 .quarto/
+/examples/**/*.md
 /examples/**/*.html
 /examples/**/*.tex
-*.pdf
+/examples/**/*.pdf
+/examples/**/site_libs
+/examples/**/.gitignore
 *_files/
 _book
 
@@ -19,8 +22,7 @@ _book
 /*.tex
 *.aux
 *.lof
-*.log
-*.lot
+*.lo*
 *.fls
 *.out
 *.toc
@@ -44,4 +46,3 @@ _book
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
-/.quarto/

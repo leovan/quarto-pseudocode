@@ -2,6 +2,10 @@
 title: "Quarto Pseudocode Extension Example"
 filters:
   - pseudocode
+pseudocode:
+  caption-prefix: "Algorithm"
+  reference-prefix: "Algorithm"
+  caption-number: true
 format:
   beamer:
     include-in-header:

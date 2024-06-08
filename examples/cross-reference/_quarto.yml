@@ -12,6 +12,15 @@ book:
 filters:
   - pseudocode
 
+crossref:
+  custom:
+    - kind: float
+      key: algo
+      reference-prefix: "Algorithm"
+      caption-prefix: "Algorithm"
+      latex-env: algo
+      latex-list-of-description: Algorithm
+
 link-citations: true
 
 format:
