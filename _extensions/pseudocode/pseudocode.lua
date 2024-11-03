@@ -227,7 +227,7 @@ local function render_pseudocode_ref_latex(global_options)
       local cite_text = pandoc.utils.stringify(el.content)
 
       if string.match(cite_text, "^@alg-") then
-        return pandoc.RawInline("latex", " " .. global_options.reference_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "} " )
+        return pandoc.RawInline("latex", global_options.reference_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "}" )
       end
     end
   }

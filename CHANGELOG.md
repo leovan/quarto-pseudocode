@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1](https://github.com/leovan/quarto-pseudocode/compare/v1.1.0...v1.1.1) (2024-11-03)
+
+### Bug Fixes
+
+- Remove tailing space after the cross reference.
+
 ## [1.1.0](https://github.com/leovan/quarto-pseudocode/compare/v1.0.0...v1.1.0) (2024-06-08)
 
 ### Features
