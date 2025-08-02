@@ -140,7 +140,8 @@ local function render_pseudocode_block_latex(global_options)
   if global_options.caption_number then
     quarto.doc.include_text("before-body", "\\floatname{algorithm}{" .. global_options.caption_prefix .. "}")
   else
-    quarto.doc.include_text("in-header", "\\DeclareCaptionLabelFormat{algnonumber}{" .. global_options.caption_prefix .. "}")
+    quarto.doc.include_text("in-header",
+      "\\DeclareCaptionLabelFormat{algnonumber}{" .. global_options.caption_prefix .. "}")
     quarto.doc.include_text("before-body", "\\captionsetup[algorithm]{labelformat=algnonumber}")
   end
 
@@ -167,7 +168,8 @@ local function render_pseudocode_block_latex(global_options)
       end
 
       if options["label"] then
-        source_code = string.gsub(source_code, "\\begin{algorithmic}", "\\label{" .. options["label"] .. "}\n\\begin{algorithmic}")
+        source_code = string.gsub(source_code, "\\begin{algorithmic}",
+          "\\label{" .. options["label"] .. "}\n\\begin{algorithmic}")
       end
 
       return pandoc.RawInline("latex", source_code)
@@ -227,7 +229,8 @@ local function render_pseudocode_ref_latex(global_options)
       local cite_text = pandoc.utils.stringify(el.content)
 
       if string.match(cite_text, "^@alg-") then
-        return pandoc.RawInline("latex", global_options.reference_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "}" )
+        return pandoc.RawInline("latex",
+          global_options.reference_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "}")
       end
     end
   }
@@ -265,7 +268,11 @@ function Pandoc(doc)
   if doc.meta["pseudocode"] then
     global_options.caption_prefix = pandoc.utils.stringify(doc.meta["pseudocode"]["caption-prefix"]) or global_options.caption_prefix
     global_options.reference_prefix = pandoc.utils.stringify(doc.meta["pseudocode"]["reference-prefix"]) or global_options.reference_prefix
-    global_options.caption_number = doc.meta["pseudocode"]["caption-number"] or global_options.caption_number
+    if doc.meta.pseudocode and doc.meta.pseudocode["caption-number"] ~= nil then
+      global_options.caption_number = doc.meta.pseudocode["caption-number"]
+    else
+      global_options.caption_number = global_options.caption_number
+    end
   end
 
   if doc.meta["book"] then
