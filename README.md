@@ -8,7 +8,7 @@
 
 🇺🇸 [README](README.md) | 🇨🇳 [中文说明](README.zh.md)
 
-A Quarto extension to render pseudocode for `html` and `pdf` document. It's based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) for `html` document, `algorithm` and `algpseudocode` package for `pdf` document.
+A Quarto extension to render pseudocode for `html` and `pdf` document. It's based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) for `html` document, `algorithm` and `algorithmicx` package for `pdf` document.
 
 ## Installing
 
@@ -94,16 +94,16 @@ pseudocode:
 
 Parameters for pseudocode share the same format like R or Python code:
 
-| Parameter                | Default  | Format | Description                                              |
-| ------------------------ | -------- | ------ | -------------------------------------------------------- |
-| `label`                  |          | all    | label for cross reference, must start with `alg-` if has |
-| `html-indent-size`       | "1.2 em" | `html` | `indentSize` in pseudocode.js                            |
-| `html-comment-delimiter` | "//"     | `html` | `commentDelimiter` in pseudocode.js                      |
-| `html-line-number`       | true     | `html` | `lineNumber` in pseudocode.js                            |
-| `html-line-number-punc`  | ":"      | `html` | `lineNumberPunc`in pseudocode.js                         |
-| `html-no-end`            | false    | `html` | `noEnd` in pseudocode.js                                 |
-| `pdf-placement`          | "H"      | `pdf`  | placement of the pseudocode in text                      |
-| `pdf-line-number`        | true     | `pdf`  | show line number                                         |
+| Parameter                | Default | Format | Description                                              |
+| ------------------------ | ------- | ------ | -------------------------------------------------------- |
+| `label`                  |         | all    | label for cross reference, must start with `alg-` if has |
+| `html-indent-size`       | "1.2em" | `html` | `indentSize` in pseudocode.js                            |
+| `html-comment-delimiter` | "//"    | `html` | `commentDelimiter` in pseudocode.js                      |
+| `html-line-number`       | true    | `html` | `lineNumber` in pseudocode.js                            |
+| `html-line-number-punc`  | ":"     | `html` | `lineNumberPunc`in pseudocode.js                         |
+| `html-no-end`            | false   | `html` | `noEnd` in pseudocode.js                                 |
+| `pdf-placement`          | "H"     | `pdf`  | placement of the pseudocode in text                      |
+| `pdf-line-number`        | true    | `pdf`  | show line number                                         |
 
 > [!NOTE]
 >
@@ -258,4 +258,4 @@ More examples please refer:
 
 The MIT License (MIT)
 
-Copyright (c) 2023-2024 [范叶亮 | Leo Van](https://leovan.me)
+Copyright (c) 2023-2025 [范叶亮 | Leo Van](https://leovan.me)

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/leovan/quarto-pseudocode/compare/v1.1.1...v1.1.2) (2025-08-02)
+
+### Bug Fixes
+
+- Respect options in meta data. ([#8](https://github.com/leovan/quarto-pseudocode/issues/8))
+- Fix alignment when using Quarto custom cross reference.
+- Fix `pdf-line-number` not working for `pdf` document.
+
 ## [1.1.1](https://github.com/leovan/quarto-pseudocode/compare/v1.1.0...v1.1.1) (2024-11-03)
 
 ### Bug Fixes

@@ -13,6 +13,8 @@ Test 1 is shown as @alg-test-1 (using `@alg-test-1`) and @algo-test-1 (using `@a
 ::: {#algo-test-1}
 ```pseudocode
 #| label: alg-test-1
+#| html-line-number: false
+#| pdf-line-number: false
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -31,6 +33,8 @@ Test 2 is shown as @alg-test-2 (using `@alg-test-2`) and @algo-test-2 (using `@a
 ::: {#algo-test-2}
 ```pseudocode
 #| label: alg-test-2
+#| html-line-number: false
+#| pdf-line-number: false
 
 \begin{algorithm}
 \caption{Test Quarto custom cross reference 2}
@@ -48,6 +52,8 @@ Test 3 is shown as @alg-test-3 (using `@alg-test-3`) and @algo-test-3 (using `@a
 ::: {#algo-test-3}
 ```pseudocode
 #| label: alg-test-3
+#| html-line-number: false
+#| pdf-line-number: false
 
 \begin{algorithm}
 \caption{Test Quarto custom cross reference 3}

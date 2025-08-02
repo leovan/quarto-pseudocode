@@ -5,17 +5,24 @@ local function ensure_html_deps()
     scripts = { "pseudocode.min.js" },
     stylesheets = { "pseudocode.min.css" }
   })
+  quarto.doc.include_text("in-header", [[
+    <style type="text/css">
+    .pseudocode-container {
+      text-align: left;
+    }
+    </style>
+  ]])
   quarto.doc.include_text("after-body", [[
     <script type="text/javascript">
     (function(d) {
       d.querySelectorAll(".pseudocode-container").forEach(function(el) {
         let pseudocodeOptions = {
-          indentSize: el.dataset.indentSize || "1.2em",
-          commentDelimiter: el.dataset.commentDelimiter || "//",
-          lineNumber: el.dataset.lineNumber === "true" ? true : false,
-          lineNumberPunc: el.dataset.lineNumberPunc || ":",
-          noEnd: el.dataset.noEnd === "true" ? true : false,
-          titlePrefix: el.dataset.captionPrefix || "Algorithm"
+          indentSize: el.dataset.indentSize,
+          commentDelimiter: el.dataset.commentDelimiter,
+          lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
+          lineNumberPunc: el.dataset.lineNumberPunc,
+          noEnd: el.dataset.noEnd.toLowerCase() === "true",
+          titlePrefix: el.dataset.captionPrefix
         };
         pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
       });
@@ -38,6 +45,14 @@ local function ensure_html_deps()
     })(document);
     </script>
   ]])
+end
+
+local function nil_to_default(value, default)
+  if value == nil then
+    return default
+  else
+    return value
+  end
 end
 
 local function ensure_latex_deps()
@@ -103,6 +118,12 @@ local function render_pseudocode_block_html(global_options)
         options["html-pseudocode-number"] = global_options.html_current_number
       end
 
+      options["html-indent-size"] = nil_to_default(options["html-indent-size"], "1.2em")
+      options["html-comment-delimiter"] = nil_to_default(options["html-indent-size"], "//")
+      options["html-line-number"] = string.lower(nil_to_default(options["html-line-number"], "true"))
+      options["html-line-number-punc"] = nil_to_default(options["html-line-number-punc"], ":")
+      options["html-no-end"] = string.lower(nil_to_default(options["html-no-end"], "false"))
+
       local data_options = {}
       for k, v in pairs(options) do
         if string.match(k, "^html-") then
@@ -156,14 +177,13 @@ local function render_pseudocode_block_latex(global_options)
 
       local options, source_code = extract_source_code_options(el.text, "pdf")
 
-      local pdf_placement = "H"
-      if options["pdf-placement"] then
-        pdf_placement = options["pdf-placement"]
-      end
-      source_code = string.gsub(source_code, "\\begin{algorithm}%s*\n", "\\begin{algorithm}[" .. pdf_placement .. "]\n")
+      options["pdf-placement"] = nil_to_default(options["pdf-placement"], "H")
+      source_code = string.gsub(source_code, "\\begin{algorithm}%s*\n", "\\begin{algorithm}[" .. options["pdf-placement"] .. "]\n")
 
-      if not options["pdf-line-number"] or options["pdf-line-number"] == "true" then
+      if string.lower(nil_to_default(options["pdf-line-number"], "true")) == "true" then
         source_code = string.gsub(source_code, "\\begin{algorithmic}%s*\n", "\\begin{algorithmic}[1]\n")
+      else
+        source_code = string.gsub(source_code, "\\begin{algorithmic}%s*\n", "\\begin{algorithmic}[0]\n")
       end
 
       if options["label"] then
@@ -249,14 +269,6 @@ local function render_pseudocode_ref(global_options)
   end
 
   return filter
-end
-
-local function nil_to_default(value, default)
-  if value == nil then
-    return default
-  else
-    return value
-  end
 end
 
 function Pandoc(doc)

@@ -8,7 +8,7 @@
 
 🇺🇸 [README](README.md) | 🇨🇳 [中文说明](README.zh.md)
 
-一个用于在 `html` 和 `pdf` 文档中渲染伪代码的 Quarto 扩展。`html` 文档基于 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 实现，`pdf` 文档基于 `algorithm` 和 `algpseudocode` 包实现。
+一个用于在 `html` 和 `pdf` 文档中渲染伪代码的 Quarto 扩展。`html` 文档基于 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 实现，`pdf` 文档基于 `algorithm` 和 `algorithmicx` 包实现。
 
 ## 安装
 
@@ -94,16 +94,16 @@ pseudocode:
 
 伪代码参数格式类似 R 和 Python 代码，如下：
 
-| 参数                     | 默认值   | 格式   | 注释                                     |
-| ------------------------ | -------- | ------ | ---------------------------------------- |
-| `label`                  |          | 全部   | 用于引用的标签，如果有必须以 `alg-` 开头 |
-| `html-indent-size`       | "1.2 em" | `html` | pseudocode.js 中的 `indentSize`          |
-| `html-comment-delimiter` | "//"     | `html` | pseudocode.js 中的 `commentDelimiter`    |
-| `html-line-number`       | true     | `html` | pseudocode.js 中的 `lineNumber`          |
-| `html-line-number-punc`  | ":"      | `html` | pseudocode.js 中的 `lineNumberPunc`      |
-| `html-no-end`            | false    | `html` | pseudocode.js 中的 `noEnd`               |
-| `pdf-placement`          | "H"      | `pdf`  | 伪代码在文本中的放置方式                 |
-| `pdf-line-number`        | true     | `pdf`  | 是否显示行号                             |
+| 参数                     | 默认值  | 格式   | 注释                                     |
+| ------------------------ | ------- | ------ | ---------------------------------------- |
+| `label`                  |         | 全部   | 用于引用的标签，如果有必须以 `alg-` 开头 |
+| `html-indent-size`       | "1.2em" | `html` | pseudocode.js 中的 `indentSize`          |
+| `html-comment-delimiter` | "//"    | `html` | pseudocode.js 中的 `commentDelimiter`    |
+| `html-line-number`       | true    | `html` | pseudocode.js 中的 `lineNumber`          |
+| `html-line-number-punc`  | ":"     | `html` | pseudocode.js 中的 `lineNumberPunc`      |
+| `html-no-end`            | false   | `html` | pseudocode.js 中的 `noEnd`               |
+| `pdf-placement`          | "H"     | `pdf`  | 伪代码在文本中的放置方式                 |
+| `pdf-line-number`        | true    | `pdf`  | 是否显示行号                             |
 
 > [!NOTE]
 >
@@ -257,4 +257,4 @@ Quicksort algorithm is shown as @algo-quicksort.
 
 The MIT License (MIT)
 
-Copyright (c) 2023-2024 [范叶亮 | Leo Van](https://leovan.me)
+Copyright (c) 2023-2025 [范叶亮 | Leo Van](https://leovan.me)
