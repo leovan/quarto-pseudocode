@@ -227,7 +227,7 @@ local function render_pseudocode_ref_latex(global_options)
       local cite_text = pandoc.utils.stringify(el.content)
 
       if string.match(cite_text, "^@alg-") then
-        return pandoc.RawInline("latex", global_options.reference_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "}" )
+        return pandoc.RawInline("latex", global_options.reference_prefix .. "~\\ref{" .. string.gsub(cite_text, "^@", "") .. "}")
       end
     end
   }
@@ -251,6 +251,14 @@ local function render_pseudocode_ref(global_options)
   return filter
 end
 
+local function nil_to_default(value, default)
+  if value == nil then
+    return default
+  else
+    return value
+  end
+end
+
 function Pandoc(doc)
   local global_options = {
     caption_prefix = "Algorithm",
@@ -263,9 +271,9 @@ function Pandoc(doc)
   }
 
   if doc.meta["pseudocode"] then
-    global_options.caption_prefix = pandoc.utils.stringify(doc.meta["pseudocode"]["caption-prefix"]) or global_options.caption_prefix
-    global_options.reference_prefix = pandoc.utils.stringify(doc.meta["pseudocode"]["reference-prefix"]) or global_options.reference_prefix
-    global_options.caption_number = doc.meta["pseudocode"]["caption-number"] or global_options.caption_number
+    global_options.caption_prefix = pandoc.utils.stringify(nil_to_default(doc.meta["pseudocode"]["caption-prefix"], global_options.caption_prefix))
+    global_options.reference_prefix = pandoc.utils.stringify(nil_to_default(doc.meta["pseudocode"]["reference-prefix"], global_options.reference_prefix))
+    global_options.caption_number = nil_to_default(doc.meta["pseudocode"]["caption-number"], global_options.caption_number)
   end
 
   if doc.meta["book"] then
