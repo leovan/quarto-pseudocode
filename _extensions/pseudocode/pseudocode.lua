@@ -119,7 +119,7 @@ local function render_pseudocode_block_html(global_options)
       end
 
       options["html-indent-size"] = nil_to_default(options["html-indent-size"], "1.2em")
-      options["html-comment-delimiter"] = nil_to_default(options["html-indent-size"], "//")
+      options["html-comment-delimiter"] = nil_to_default(options["html-comment-delimiter"], "//")
       options["html-line-number"] = string.lower(nil_to_default(options["html-line-number"], "true"))
       options["html-line-number-punc"] = nil_to_default(options["html-line-number-punc"], ":")
       options["html-no-end"] = string.lower(nil_to_default(options["html-no-end"], "false"))
