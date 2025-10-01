@@ -77,12 +77,12 @@ Add the pseudocode in a code block marked with `pseudocode`:
 
 Global parameters are show as below:
 
-| Parameter          | Default     | Format | Description                                    |
-| ------------------ | ----------- | ------ | ---------------------------------------------- |
-| `caption-prefix`   | "Algorithm" | all    | prefix for caption                             |
-| `reference-prefix` | "Algorithm" | all    | prefix for reference                           |
-| `caption-number`   | true        | all    | show number in build-in caption                |
-| `caption-align`    | "left"      | all    | caption alignment, "left", "center" or "right" |
+| Parameter          | Default     | Format | Description                                             |
+| ------------------ | ----------- | ------ | ------------------------------------------------------- |
+| `caption-prefix`   | "Algorithm" | all    | prefix for caption                                      |
+| `reference-prefix` | "Algorithm" | all    | prefix for reference                                    |
+| `caption-number`   | true        | all    | show number in build-in caption                         |
+| `caption-align`    | "left"      | all    | Build-in caption alignment, "left", "center" or "right" |
 
 Add global parameters in the header of your document, or in the `_quarto.yml` file:
 

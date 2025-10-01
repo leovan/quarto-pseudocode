@@ -77,12 +77,12 @@ filters:
 
 全局参数如下：
 
-| 参数               | 默认值      | 格式 | 注释                                    |
-| ------------------ | ----------- | ---- | --------------------------------------- |
-| `caption-prefix`   | "Algorithm" | 全部 | 标题前缀                                |
-| `reference-prefix` | "Algorithm" | 全部 | 引用前缀                                |
-| `caption-number`   | true        | 全部 | 显示内置标题数字                        |
-| `caption-align`    | "left"      | 全部 | 标题对齐方式，"left"、"center"或"right" |
+| 参数               | 默认值      | 格式 | 注释                                        |
+| ------------------ | ----------- | ---- | ------------------------------------------- |
+| `caption-prefix`   | "Algorithm" | 全部 | 标题前缀                                    |
+| `reference-prefix` | "Algorithm" | 全部 | 引用前缀                                    |
+| `caption-number`   | true        | 全部 | 显示内置标题数字                            |
+| `caption-align`    | "left"      | 全部 | 内置标题对齐方式，"left"、"center"或"right" |
 
 将参数添加到文档的头部或 `_metadata.yml` 文件中，例如：
 
