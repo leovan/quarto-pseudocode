@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0](https://github.com/leovan/quarto-pseudocode/compare/v1.1.3...v1.2.0) (2025-10-01)
+
+### Bug Fixes
+
+- Make filter compatible with Quarto 1.8. ([#11](https://github.com/leovan/quarto-pseudocode/issues/11))
+
+> [!WARNING]
+>
+> 1. Change the prefix from `alg-` to `algo-` when using build-in cross reference to make it compatible with Quarto 1.8.
+> 1. Change the prefix from `algo-` to `alg-` when using Quarto custom cross reference to make it compatible with Quarto 1.8.
+
+### Features
+
+- Optimize style when there is no caption.
+- Add parameter `caption-align` to control caption alignment.
+
 ## [1.1.3](https://github.com/leovan/quarto-pseudocode/compare/v1.1.2...v1.1.3) (2025-09-03)
 
 ### Bug Fixes

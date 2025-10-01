@@ -51,10 +51,10 @@ format:
 
 ## Test text-style
 
-Test text-style is shown as @alg-test-text-style.
+Test text-style is shown as @algo-test-text-style.
 
 ```pseudocode
-#| label: alg-test-text-style
+#| label: algo-test-text-style
 #| html-indent-size: "1.2em"
 #| html-comment-delimiter: "//"
 #| html-line-number: true
@@ -89,12 +89,14 @@ Test text-style is shown as @alg-test-text-style.
 \end{algorithm}
 ```
 
+Test text-style is shown as @algo-test-text-style.
+
 ## Test atoms
 
-Test atoms is shown as @alg-test-atoms.
+Test atoms is shown as @algo-test-atoms.
 
 ```pseudocode
-#| label: alg-test-atoms
+#| label: algo-test-atoms
 #| html-line-number: false
 #| html-no-end: true
 #| pdf-line-number: false
@@ -114,10 +116,10 @@ Test atoms is shown as @alg-test-atoms.
 
 ## Test control blocks
 
-Test control blocks is shown as @alg-test-control-blocks-part-1 and @alg-test-control-blocks-part-2.
+Test control blocks is shown as @algo-test-control-blocks-part-1 and @algo-test-control-blocks-part-2.
 
 ```pseudocode
-#| label: alg-test-control-blocks-part-1
+#| label: algo-test-control-blocks-part-1
 
 \begin{algorithm}
 \caption{Test control blocks - Part 1}
@@ -159,7 +161,7 @@ Test control blocks is shown as @alg-test-control-blocks-part-1 and @alg-test-co
 ```
 
 ```pseudocode
-#| label: alg-test-control-blocks-part-2
+#| label: algo-test-control-blocks-part-2
 
 \begin{algorithm}
 \caption{Test control blocks - Part 2}
@@ -194,10 +196,10 @@ Test control blocks is shown as @alg-test-control-blocks-part-1 and @alg-test-co
 
 ## Test statements and comments
 
-Test statements and comments is shown as @alg-test-statements-and-comments.
+Test statements and comments is shown as @algo-test-statements-and-comments.
 
 ```pseudocode
-#| label: alg-test-statements-and-comments
+#| label: algo-test-statements-and-comments
 
 \begin{algorithm}
 \caption{Test statements and comments}
@@ -223,10 +225,10 @@ Test statements and comments is shown as @alg-test-statements-and-comments.
 ## Test pseudocode in custom block
 
 ::: {.content-visible when-format="html"}
-Test content visible in html format is show as @alg-test-content-visible-html.
+Test content visible in html format is show as @algo-test-content-visible-html.
 
 ```pseudocode
-#| label: alg-test-content-visible-html
+#| label: algo-test-content-visible-html
 
 \begin{algorithm}
 \caption{Test content visible}
@@ -240,10 +242,10 @@ Test content visible in html format is show as @alg-test-content-visible-html.
 :::
 
 ::: {.content-visible when-format="pdf"}
-Test content visible in pdf format is show as @alg-test-content-visible-pdf.
+Test content visible in pdf format is show as @algo-test-content-visible-pdf.
 
 ```pseudocode
-#| label: alg-test-content-visible-pdf
+#| label: algo-test-content-visible-pdf
 
 \begin{algorithm}
 \caption{Test content visible}
@@ -256,11 +258,11 @@ Test content visible in pdf format is show as @alg-test-content-visible-pdf.
 ```
 :::
 
-Test callout is show as @alg-test-callout.
+Test callout is show as @algo-test-callout.
 
 ::: {.callout-note}
 ```pseudocode
-#| label: alg-test-callout
+#| label: algo-test-callout
 #| pdf-placement: "H"
 
 \begin{algorithm}

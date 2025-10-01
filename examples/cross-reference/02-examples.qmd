@@ -2,17 +2,14 @@
 
 ## Test cross reference in different files
 
-Quicksort algorithm is shown as @alg-quicksort (using `@alg-quicksort`). Build-in cross reference in different files works only with `pdf` format.
-
-Quicksort algorithm is shown as @algo-quicksort (using `@algo-quicksort`). Quarto custom cross reference in different files works both with `html` and `pdf` format.
+Quicksort algorithm is shown as @alg-quicksort (using `@alg-quicksort`). Quarto custom cross reference in different files works both with `html` and `pdf` format.
 
 ## Test Quarto custom cross reference
 
-Test 1 is shown as @alg-test-1 (using `@alg-test-1`) and @algo-test-1 (using `@algo-test-1`).
+Test 1 is shown as @alg-test-1 (using `@alg-test-1`).
 
-::: {#algo-test-1}
+::: {#alg-test-1}
 ```pseudocode
-#| label: alg-test-1
 #| html-line-number: false
 #| pdf-line-number: false
 
@@ -28,16 +25,14 @@ Test 1 is shown as @alg-test-1 (using `@alg-test-1`) and @algo-test-1 (using `@a
 Test Quarto custom cross reference 1
 :::
 
-Test 2 is shown as @alg-test-2 (using `@alg-test-2`) and @algo-test-2 (using `@algo-test-2`).
+Test 2 is shown as @alg-test-2 (using `@alg-test-2`).
 
-::: {#algo-test-2}
+::: {#alg-test-2}
 ```pseudocode
-#| label: alg-test-2
 #| html-line-number: false
 #| pdf-line-number: false
 
 \begin{algorithm}
-\caption{Test Quarto custom cross reference 2}
 \begin{algorithmic}
 \Procedure{Test-Quarto-Custom-Cross-Reference}{}
   \State QUARTO CUSTOM CROSS REFERENCE
@@ -47,16 +42,14 @@ Test 2 is shown as @alg-test-2 (using `@alg-test-2`) and @algo-test-2 (using `@a
 ```
 :::
 
-Test 3 is shown as @alg-test-3 (using `@alg-test-3`) and @algo-test-3 (using `@algo-test-3`).
+Test 3 is shown as @alg-test-3 (using `@alg-test-3`).
 
-::: {#algo-test-3}
+::: {#alg-test-3}
 ```pseudocode
-#| label: alg-test-3
 #| html-line-number: false
 #| pdf-line-number: false
 
 \begin{algorithm}
-\caption{Test Quarto custom cross reference 3}
 \begin{algorithmic}
 \Procedure{Test-Quarto-Custom-Cross-Reference}{}
   \State QUARTO CUSTOM CROSS REFERENCE
@@ -69,5 +62,3 @@ Test Quarto custom cross reference 3
 :::
 
 \listofalgorithms{}
-
-\listofalgos{}

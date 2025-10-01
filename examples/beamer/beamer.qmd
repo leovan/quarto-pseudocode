@@ -17,7 +17,7 @@ format:
 
 ## Test atoms
 
-Test atoms is shown as @alg-test-atoms.
+Test atoms is shown as @algo-test-atoms.
 
 \renewcommand{\Return}{\State \textbf{return}~}
 \newcommand{\Print}{\State \textbf{print}~}
@@ -32,7 +32,7 @@ Test atoms is shown as @alg-test-atoms.
 \newcommand{\DownTo}{\textbf{downto}~}
 
 ```pseudocode
-#| label: alg-test-atoms
+#| label: algo-test-atoms
 #| html-line-number: false
 #| html-no-end: true
 #| pdf-line-number: false

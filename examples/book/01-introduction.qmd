@@ -1,9 +1,9 @@
 # Introduction
 
-Quicksort algorithm is shown as @alg-quicksort.
+Quicksort algorithm is shown as @algo-quicksort.
 
 ```pseudocode
-#| label: alg-quicksort
+#| label: algo-quicksort
 #| html-indent-size: "1.2em"
 #| html-comment-delimiter: "//"
 #| html-line-number: true

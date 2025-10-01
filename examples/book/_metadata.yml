@@ -2,3 +2,4 @@ pseudocode:
   caption-prefix: "Algorithm"
   reference-prefix: "Algorithm"
   caption-number: true
+  caption-align: "right"

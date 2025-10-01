@@ -77,11 +77,12 @@ filters:
 
 全局参数如下：
 
-| 参数               | 默认值      | 格式 | 注释             |
-| ------------------ | ----------- | ---- | ---------------- |
-| `caption-prefix`   | "Algorithm" | 全部 | 标题前缀         |
-| `reference-prefix` | "Algorithm" | 全部 | 引用前缀         |
-| `caption-number`   | true        | 全部 | 显示内置标题数字 |
+| 参数               | 默认值      | 格式 | 注释                                    |
+| ------------------ | ----------- | ---- | --------------------------------------- |
+| `caption-prefix`   | "Algorithm" | 全部 | 标题前缀                                |
+| `reference-prefix` | "Algorithm" | 全部 | 引用前缀                                |
+| `caption-number`   | true        | 全部 | 显示内置标题数字                        |
+| `caption-align`    | "left"      | 全部 | 标题对齐方式，"left"、"center"或"right" |
 
 将参数添加到文档的头部或 `_metadata.yml` 文件中，例如：
 
@@ -89,7 +90,8 @@ filters:
 pseudocode:
   caption-prefix: "算法"
   reference-prefix: "算法"
-  caption-no-number: true
+  caption-number: true
+  caption-align: "left"
 ```
 
 伪代码参数格式类似 R 和 Python 代码，如下：
@@ -152,11 +154,14 @@ format:
 
 #### 内置交叉引用
 
-在伪代码块中设置 `label`，并且需要以 `alg-` 开头：
+在伪代码块中设置 `label`，并且需要以 `algo-` 开头：
+
+> [!WARNING]
+> 从 Quarto 1.8 开始，`alg` 已经成为交叉引用的保留前缀。
 
 ````
 ```pseudocode
-#| label: alg-quicksort
+#| label: algo-quicksort
 ...
 
 \begin{algorithm}
@@ -171,8 +176,11 @@ format:
 在正文中使用 `@<label>` 进行交叉引用：
 
 ```
-Quicksort algorithm is shown as @alg-quicksort.
+Quicksort algorithm is shown as @algo-quicksort.
 ```
+
+> [!IMPORTANT]
+> 必须设置 `label` 和 `\caption{}` 以确保内置交叉引用正常。
 
 > [!WARNING]
 > 对于 `book` 类型项目，跨文件引用仅在 `pdf` 文档中可用。
@@ -185,20 +193,17 @@ Quicksort algorithm is shown as @alg-quicksort.
 crossref:
   custom:
     - kind: float
-      key: algo
+      key: alg
       reference-prefix: "Algorithm"
       caption-prefix: "Algorithm"
-      latex-env: algo
+      latex-env: alg
       latex-list-of-description: Algorithm
 ```
-
-> [!IMPORTANT]
-> 请勿将 `key` 设置为内置应用所使用的 `alg`。
 
 使用 [Quarto 自定义交叉引用](https://quarto.org/docs/authoring/cross-references-custom.html) 包围伪代码块：
 
 ````
-::: {#algo-quicksort}
+::: {#alg-quicksort}
 
 ```pseudocode
 ...
@@ -219,13 +224,13 @@ Quicksort
 > [!IMPORTANT]
 >
 > 1. 请勿设置 `label`，以避免与内置引用冲突。
-> 2. 请将全局设置 `caption-no-number` 置为 `true`，以避免在伪代码内置标题和 Quarto 自定义交叉引用标题中显式不一致的数字。
+> 2. 请将全局设置 `caption-number` 置为 `false`，以避免在伪代码内置标题和 Quarto 自定义交叉引用标题中显式不一致的数字。
 > 3. 在伪代码块和 Quarto 自定义交叉引用中同时设置标题以取得最佳效果。
 
 在正文中使用 `@<label>` 进行交叉引用：
 
 ```
-Quicksort algorithm is shown as @algo-quicksort.
+Quicksort algorithm is shown as @alg-quicksort.
 ```
 
 ### 区别

@@ -77,11 +77,12 @@ Add the pseudocode in a code block marked with `pseudocode`:
 
 Global parameters are show as below:
 
-| Parameter           | Default     | Format | Description                     |
-| ------------------- | ----------- | ------ | ------------------------------- |
-| `caption-prefix`    | "Algorithm" | all    | prefix for caption              |
-| `reference-prefix`  | "Algorithm" | all    | prefix for reference            |
-| `caption-number`    | true        | all    | show number in build-in caption |
+| Parameter          | Default     | Format | Description                                    |
+| ------------------ | ----------- | ------ | ---------------------------------------------- |
+| `caption-prefix`   | "Algorithm" | all    | prefix for caption                             |
+| `reference-prefix` | "Algorithm" | all    | prefix for reference                           |
+| `caption-number`   | true        | all    | show number in build-in caption                |
+| `caption-align`    | "Left"      | all    | caption alignment, "left", "center" or "right" |
 
 Add global parameters in the header of your document, or in the `_quarto.yml` file:
 
@@ -90,6 +91,7 @@ pseudocode:
   caption-prefix: "Algorithm"
   reference-prefix: "Algorithm"
   caption-number: true
+  caption-align: "left"
 ```
 
 Parameters for pseudocode share the same format like R or Python code:
@@ -145,7 +147,6 @@ format:
   pdf:
     include-before-body:
       text: |
-        \numberwithin{algorithm}{chapter}
         \algrenewcommand{\algorithmiccomment}[1]{\hskip3em$\rightarrow$ #1}
 ```
 
@@ -153,11 +154,14 @@ format:
 
 #### Build-in Cross Reference
 
-Set the `label` in pseudocode, and it must start with `alg-`:
+Set the `label` in pseudocode, and it must start with `algo-`:
+
+> [!WARNING]
+> From Quarto 1.8, `alg` has become a reserved cross reference prefix keyword.
 
 ````
 ```pseudocode
-#| label: alg-quicksort
+#| label: algo-quicksort
 ...
 
 \begin{algorithm}
@@ -172,8 +176,11 @@ Set the `label` in pseudocode, and it must start with `alg-`:
 Use `@<label>` to do cross reference:
 
 ```
-Quicksort algorithm is shown as @alg-quicksort.
+Quicksort algorithm is shown as @algo-quicksort.
 ```
+
+> [!IMPORTANT]
+> Must set `label` and `\caption{}` to make build-in cross reference works.
 
 > [!WARNING]
 > For `book` type project, build-in cross reference in different files works only with `pdf` format.
@@ -186,20 +193,17 @@ Add custom cross reference for pseudocode in the header of your document, or in 
 crossref:
   custom:
     - kind: float
-      key: algo
+      key: alg
       reference-prefix: "Algorithm"
       caption-prefix: "Algorithm"
-      latex-env: algo
+      latex-env: alg
       latex-list-of-description: Algorithm
 ```
-
-> [!IMPORTANT]
-> Do not set `key` to `alg`, which is used for build-in reference.
 
 Use [Quarto custom cross reference](https://quarto.org/docs/authoring/cross-references-custom.html) to surround the pseudocode:
 
 ````
-::: {#algo-quicksort}
+::: {#alg-quicksort}
 
 ```pseudocode
 ...
@@ -220,13 +224,13 @@ Quicksort
 > [!IMPORTANT]
 >
 > 1. Do not set `label` to avoid conflict with build-in cross reference.
-> 2. Set the global parameter `caption-no-number` to `true` to avoid show different numbers in pseudocode build-in caption and Quarto cross reference caption.
+> 2. Set the global parameter `caption-number` to `false` to avoid show different numbers in pseudocode build-in caption and Quarto cross reference caption.
 > 3. Set both captions in pseudocode and Quarto custom cross reference to achieve best effect.
 
 Use `@<label>` to do cross reference.
 
 ```
-Quicksort algorithm is shown as @algo-quicksort.
+Quicksort algorithm is shown as @alg-quicksort.
 ```
 
 #### Difference

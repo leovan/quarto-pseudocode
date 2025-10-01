@@ -2,14 +2,14 @@
 
 ## Test cross reference in different files
 
-Quicksort algorithm is shown as @alg-quicksort. Build-in cross reference in different files works only with `pdf` format.
+Quicksort algorithm is shown as @algo-quicksort. Build-in cross reference in different files works only with `pdf` format.
 
 ## Test text-style
 
-Test text-style is shown as @alg-test-text-style.
+Test text-style is shown as @algo-test-text-style.
 
 ```pseudocode
-#| label: alg-test-text-style
+#| label: algo-test-text-style
 #| html-indent-size: "1.2em"
 #| html-comment-delimiter: "//"
 #| html-line-number: true
@@ -46,10 +46,10 @@ Test text-style is shown as @alg-test-text-style.
 
 ## Test atoms
 
-Test atoms is shown as @alg-test-atoms.
+Test atoms is shown as @algo-test-atoms.
 
 ```pseudocode
-#| label: alg-test-atoms
+#| label: algo-test-atoms
 #| html-line-number: false
 #| html-no-end: false
 #| pdf-line-number: false
@@ -69,10 +69,10 @@ Test atoms is shown as @alg-test-atoms.
 
 ## Test control blocks
 
-Test control blocks is shown as @alg-test-control-blocks-part-1 and @alg-test-control-blocks-part-2.
+Test control blocks is shown as @algo-test-control-blocks-part-1 and @algo-test-control-blocks-part-2.
 
 ```pseudocode
-#| label: alg-test-control-blocks-part-1
+#| label: algo-test-control-blocks-part-1
 
 \begin{algorithm}
 \caption{Test control blocks - Part 1}
@@ -114,7 +114,7 @@ Test control blocks is shown as @alg-test-control-blocks-part-1 and @alg-test-co
 ```
 
 ```pseudocode
-#| label: alg-test-control-blocks-part-2
+#| label: algo-test-control-blocks-part-2
 
 \begin{algorithm}
 \caption{Test control blocks - Part 2}
@@ -149,10 +149,10 @@ Test control blocks is shown as @alg-test-control-blocks-part-1 and @alg-test-co
 
 ## Test statements and comments
 
-Test statements and comments is shown as @alg-test-statements-and-comments.
+Test statements and comments is shown as @algo-test-statements-and-comments.
 
 ```pseudocode
-#| label: alg-test-statements-and-comments
+#| label: algo-test-statements-and-comments
 
 \begin{algorithm}
 \caption{Test statements and comments}
