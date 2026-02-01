@@ -8,7 +8,7 @@
 
 🇺🇸 [README](README.md) | 🇨🇳 [中文说明](README.zh.md)
 
-A Quarto extension to render pseudocode for `html` and `pdf` document. It's based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) for `html` document, `algorithm` and `algorithmicx` package for `pdf` document.
+A Quarto extension to render pseudocode for `html` and `pdf` document. It's based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) for `html` document, `algorithm` and `algpseudocode` package for `pdf` document.
 
 ## Installing
 
@@ -42,6 +42,7 @@ Add the pseudocode in a code block marked with `pseudocode`:
 #| html-no-end: false
 #| pdf-placement: "htb!"
 #| pdf-line-number: true
+#| pdf-comment-delimiter: "//"
 
 \begin{algorithm}
 \caption{Quicksort}
@@ -106,6 +107,7 @@ Parameters for pseudocode share the same format like R or Python code:
 | `html-no-end`            | false   | `html` | `noEnd` in pseudocode.js                                 |
 | `pdf-placement`          | "H"     | `pdf`  | placement of the pseudocode in text                      |
 | `pdf-line-number`        | true    | `pdf`  | show line number                                         |
+| `pdf-comment-delimiter`  | "//"    | `pdf`  | comment delimiter                                        |
 
 > [!NOTE]
 >
@@ -115,6 +117,8 @@ Parameters for pseudocode share the same format like R or Python code:
 
 For `html` document, [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) render math formulas using either [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/). We add [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) after html body, thus you need initialize [KaTeX](https://katex.org/) or [MathJax](https://www.mathjax.org/) before html body or in html header. Add this in the header of your document, or in the `_quarto.yml` file.
 
+#### MathJax 3
+
 ```yml
 format:
   html:
@@ -123,21 +127,59 @@ format:
         <script>
         MathJax = {
           loader: {
-            load: ['[tex]/boldsymbol']
+            load: ["[tex]/boldsymbol"],
           },
           tex: {
             tags: "all",
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
+            inlineMath: [["$", "$"], ["\\(", "\\)"]],
+            displayMath: [["$$", "$$"], ["\\[", "\\]"]],
             processEscapes: true,
             processEnvironments: true,
             packages: {
-              '[+]': ['boldsymbol']
-            }
-          }
+              "[+]": ["boldsymbol"],
+            },
+          },
         };
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+```
+
+#### MathJax 4
+
+```yml
+format:
+  html:
+    include-in-header:
+      text: |
+        <script>
+        MathJax = {
+          loader: {
+            load: ["[tex]/boldsymbol"],
+          },
+          tex: {
+            tags: "all",
+            inlineMath: [["$", "$"], ["\\(", "\\)"]],
+            displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: {
+              "[+]": ["boldsymbol"],
+            },
+          },
+        };
+        </script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+```
+
+#### KaTeX
+
+```yml
+format:
+  html:
+    include-in-header:
+      text: |
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
 ```
 
 For `pdf` document, pseudocode caption in `book` type project will be changed from `Algorithm n` to `Algorithm x.n` in chapter `x`. Add `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` in the header of your document, or in the `_quarto.yml` file will change the form in which comments are displayed:
@@ -262,4 +304,4 @@ More examples please refer:
 
 The MIT License (MIT)
 
-Copyright (c) 2023-2025 [范叶亮 | Leo Van](https://leovan.me)
+Copyright (c) 2023-2026 [范叶亮 | Leo Van](https://leovan.me)

@@ -10,43 +10,8 @@ format:
   html:
     include-in-header:
       text: |
-        <script>
-        MathJax = {
-          loader: {
-            load: ["[tex]/boldsymbol"],
-          },
-          tex: {
-            tags: "all",
-            inlineMath: [["$", "$"], ["\\(", "\\)"]],
-            displayMath: [["$$", "$$"], ["\\[", "\\]"]],
-            processEscapes: true,
-            processEnvironments: true,
-            packages: {
-              "[+]": ["boldsymbol"],
-            },
-          },
-        };
-        </script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
-  pdf:
-    include-in-header:
-      text: |
-        \usepackage{xeCJK}
-    include-before-body:
-      text: |
-        \renewcommand{\Return}{\State \textbf{return}~}
-        \newcommand{\Print}{\State \textbf{print}~}
-        \newcommand{\Break}{\State \textbf{break}}
-        \newcommand{\Continue}{\State \textbf{continue}}
-        \newcommand{\True}{\textbf{true}}
-        \newcommand{\False}{\textbf{false}}
-        \renewcommand{\And}{\textbf{and}~}
-        \newcommand{\Or}{\textbf{or}~}
-        \renewcommand{\Not}{\textbf{not}~}
-        \newcommand{\To}{\textbf{to}~}
-        \newcommand{\DownTo}{\textbf{downto}~}
-    pdf-engine: xelatex
-    keep-tex: true
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
 ---
 
 ## Test text-style
@@ -60,9 +25,6 @@ Test text-style is shown as @algo-test-text-style.
 #| html-line-number: true
 #| html-line-number-punc: ":"
 #| html-no-end: false
-#| pdf-placement: "htb!"
-#| pdf-line-number: true
-#| pdf-comment-delimiter: "//"
 
 \begin{algorithm}
 \caption{Test text-style}
@@ -213,7 +175,7 @@ Test statements and comments is shown as @algo-test-statements-and-comments.
 \Procedure{Test-Comments}{} \Comment{comment for Procedure}
   \State a statement \Comment{inline comment}
   \State \Comment{line comment}
-  \If{some condition} \Comment{comment for if}
+  \If{some condition}\Comment{comment for if}
     \Return \True \Comment{another inline comment}
   \Else \Comment{comment for else}
     \Return \False \Comment{yet another inline comment}

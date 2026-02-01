@@ -47,6 +47,7 @@ Test atoms is shown as @algo-test-atoms.
 \State \textbf{Text-symbols:} \textbackslash
 \State \textbf{Quote-symbols:} `single quotes', ``double quotes''
 \State \textbf{Math:} $(\mathcal{C}_m)$, $i \gets i + 1$, $E=mc^2$, \( x^n + y^n = z^n \), $\$$, \(\$\)
+\State \textbf{Comment:} \Comment{comment}
 \end{algorithmic}
 \end{algorithm}
 ```

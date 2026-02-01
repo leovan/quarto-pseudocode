@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.0](https://github.com/leovan/quarto-pseudocode/compare/v1.2.0...v1.3.0) (2026-02-01)
+
+### Features
+
+- Add MathJax 4 support.
+- Add parameter `pdf-comment-delimiter` for `pdf` document.
+
+### Bug Fixes
+
+- Add space around comment delimiter.
+
 ## [1.2.0](https://github.com/leovan/quarto-pseudocode/compare/v1.1.3...v1.2.0) (2025-10-01)
 
 ### Bug Fixes

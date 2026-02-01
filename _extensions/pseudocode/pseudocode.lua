@@ -22,11 +22,11 @@ local function ensure_html_deps()
       d.querySelectorAll(".pseudocode-container").forEach(function(el) {
         let pseudocodeOptions = {
           indentSize: el.dataset.indentSize,
-          commentDelimiter: el.dataset.commentDelimiter,
+          commentDelimiter: " " + el.dataset.commentDelimiter + " ",
           lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
           lineNumberPunc: el.dataset.lineNumberPunc,
           noEnd: el.dataset.noEnd.toLowerCase() === "true",
-          titlePrefix: el.dataset.captionPrefix
+          titlePrefix: el.dataset.captionPrefix,
         };
         pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
       });
@@ -90,8 +90,8 @@ local function extract_source_code_options(source_code, render_type)
         if idx_start and idx_end and idx_end + 1 < #str then
           k = string.sub(str, 1, idx_start - 1)
           v = string.sub(str, idx_end + 1)
-          v = string.gsub(v, "^\"%s*", "")
-          v = string.gsub(v, "%s*\"$", "")
+          v = string.gsub(v, "^%s*\"", "")
+          v = string.gsub(v, "\"%s*$", "")
 
           options[k] = v
         else
@@ -211,6 +211,15 @@ local function render_pseudocode_block_latex(global_options)
       end
 
       local options, source_code = extract_source_code_options(el.text, "pdf")
+
+      local comment_delimiter = nil_to_default(options["pdf-comment-delimiter"], "//")
+      local placeholder = "#1"
+
+      if quarto.doc.is_format("beamer") then
+        placeholder = "####1"
+      end
+
+      source_code = "\\algrenewcommand{\\algorithmiccomment}[1]{ " .. comment_delimiter .. " " .. placeholder .. "}\n".. source_code
 
       options["pdf-placement"] = nil_to_default(options["pdf-placement"], "H")
       source_code = string.gsub(source_code, "\\begin{algorithm}%s*\n",

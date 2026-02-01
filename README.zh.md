@@ -8,7 +8,7 @@
 
 🇺🇸 [README](README.md) | 🇨🇳 [中文说明](README.zh.md)
 
-一个用于在 `html` 和 `pdf` 文档中渲染伪代码的 Quarto 扩展。`html` 文档基于 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 实现，`pdf` 文档基于 `algorithm` 和 `algorithmicx` 包实现。
+一个用于在 `html` 和 `pdf` 文档中渲染伪代码的 Quarto 扩展。`html` 文档基于 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 实现，`pdf` 文档基于 `algorithm` 和 `algpseudocode` 包实现。
 
 ## 安装
 
@@ -42,6 +42,7 @@ filters:
 #| html-no-end: false
 #| pdf-placement: "htb!"
 #| pdf-line-number: true
+#| pdf-comment-delimiter: "//"
 
 \begin{algorithm}
 \caption{Quicksort}
@@ -106,6 +107,7 @@ pseudocode:
 | `html-no-end`            | false   | `html` | pseudocode.js 中的 `noEnd`               |
 | `pdf-placement`          | "H"     | `pdf`  | 伪代码在文本中的放置方式                 |
 | `pdf-line-number`        | true    | `pdf`  | 是否显示行号                             |
+| `pdf-comment-delimiter`  | "//"    | `pdf`  | 注释分隔符                               |
 
 > [!NOTE]
 >
@@ -115,6 +117,8 @@ pseudocode:
 
 对于 `html` 文档，[pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js) 使用 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/) 渲染数学公式。本扩展在 html body 之后添加 [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js)，因此你需要在 html body 之前或 html header 中初始化 [KaTeX](https://katex.org/) 或 [MathJax](https://www.mathjax.org/)。将相关内容添加到文档的头部或 `_quarto.yml` 文件中：
 
+#### MathJax 3
+
 ```yml
 format:
   html:
@@ -123,21 +127,59 @@ format:
         <script>
         MathJax = {
           loader: {
-            load: ['[tex]/boldsymbol']
+            load: ["[tex]/boldsymbol"],
           },
           tex: {
             tags: "all",
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
+            inlineMath: [["$", "$"], ["\\(", "\\)"]],
+            displayMath: [["$$", "$$"], ["\\[", "\\]"]],
             processEscapes: true,
             processEnvironments: true,
             packages: {
-              '[+]': ['boldsymbol']
-            }
-          }
+              "[+]": ["boldsymbol"],
+            },
+          },
         };
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
+```
+
+#### MathJax 4
+
+```yml
+format:
+  html:
+    include-in-header:
+      text: |
+        <script>
+        MathJax = {
+          loader: {
+            load: ["[tex]/boldsymbol"],
+          },
+          tex: {
+            tags: "all",
+            inlineMath: [["$", "$"], ["\\(", "\\)"]],
+            displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: {
+              "[+]": ["boldsymbol"],
+            },
+          },
+        };
+        </script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+```
+
+#### KaTeX
+
+```yml
+format:
+  html:
+    include-in-header:
+      text: |
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
 ```
 
 对于 `pdf` 文档，在 `book` 类型项目中将第 `x` 章中伪代码标题序号将由 `Algorithm n` 变为 `Algorithm x.n`。将 `\algrenewcommand{\algorithmiccomment}[1]{<your value> #1}` 添加到文档的头部或 `_quarto.yml` 文件中可以改变注释的显示方式：
@@ -262,4 +304,4 @@ Quicksort algorithm is shown as @alg-quicksort.
 
 The MIT License (MIT)
 
-Copyright (c) 2023-2025 [范叶亮 | Leo Van](https://leovan.me)
+Copyright (c) 2023-2026 [范叶亮 | Leo Van](https://leovan.me)
