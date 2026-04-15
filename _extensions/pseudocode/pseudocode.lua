@@ -31,6 +31,7 @@ local function ensure_html_deps()
           lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
           lineNumberPunc: el.dataset.lineNumberPunc,
           noEnd: el.dataset.noEnd.toLowerCase() === "true",
+          scopeLines: el.dataset.indentLines.toLowerCase() === "true",
           titlePrefix: el.dataset.captionPrefix,
         };
         pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
@@ -164,6 +165,7 @@ local function render_pseudocode_block_html(global_options)
       options["html-line-number"] = string.lower(nil_to_default(options["html-line-number"], "true"))
       options["html-line-number-punc"] = nil_to_default(options["html-line-number-punc"], ":")
       options["html-no-end"] = string.lower(nil_to_default(options["html-no-end"], "false"))
+      options["html-indent-lines"] = string.lower(nil_to_default(options["html-indent-lines"], "false"))
 
       local data_options = {}
       for k, v in pairs(options) do

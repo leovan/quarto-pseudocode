@@ -43,6 +43,9 @@ attributes:
     html-no-end:
       type: boolean
       description: Hide end statements in HTML output.
+    html-indent-lines:
+      type: boolean
+      description: Show indent guide lines in HTML output.
     pdf-placement:
       type: string
       description: LaTeX algorithm placement token in PDF output.
