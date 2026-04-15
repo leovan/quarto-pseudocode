@@ -105,6 +105,7 @@ pseudocode:
 | `html-line-number`       | true    | HTML | HTML 格式显示行号。                |
 | `html-line-number-punc`  | ":"     | HTML | HTML 格式中行号后使用的标点符号。  |
 | `html-no-end`            | false   | HTML | HTML 格式隐藏结束语句。            |
+| `html-indent-lines`      | false   | PDF  | HTML 格式显示缩进参考线。          |
 | `pdf-placement`          | "H"     | PDF  | PDF 格式中放置伪代码块的放置方式。 |
 | `pdf-line-number`        | true    | PDF  | PDF 格式显示行号。                 |
 | `pdf-comment-delimiter`  | "//"    | PDF  | PDF 格式注释分隔符。               |

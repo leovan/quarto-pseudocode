@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0](https://github.com/leovan/quarto-pseudocode/compare/v1.4.0...v1.5.0) (2026-04-15)
+
+### Features
+
+- Add `html-indent-lines` option for HTML document. [#16](https://github.com/leovan/quarto-pseudocode/pull/16) ([imartayan](https://github.com/imartayan))
+
 ## [1.4.0](https://github.com/leovan/quarto-pseudocode/compare/v1.3.0...v1.4.0) (2026-03-28)
 
 ### Features

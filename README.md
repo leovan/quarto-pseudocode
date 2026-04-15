@@ -105,6 +105,7 @@ Parameters for pseudocode share the same format like R or Python code:
 | `html-line-number`       | true    | HTML   | Show line numbers in HTML output.                      |
 | `html-line-number-punc`  | ":"     | HTML   | Punctuation used after line numbers in HTML output.    |
 | `html-no-end`            | false   | HTML   | Hide end statements in HTML output.                    |
+| `html-indent-lines`      | false   | HTML   | Show indent guide lines in HTML output.                |
 | `pdf-placement`          | "H"     | PDF    | LaTeX algorithm placement token in PDF output.         |
 | `pdf-line-number`        | true    | PDF    | Show line numbers in PDF output.                       |
 | `pdf-comment-delimiter`  | "//"    | PDF    | Comment delimiter token in PDF output.                 |
