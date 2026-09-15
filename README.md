@@ -306,6 +306,7 @@ More examples please refer:
 2. Book document (HTML and PDF): [examples/book](examples/book).
 3. Beamer document (PDF): [examples/beamer](examples/beamer).
 4. Cross reference example (HTML and PDF): [examples/cross-reference](examples/cross-reference).
+5. Presentation document (revealjs): [examples/revealjs](examples/revealjs).
 
 ## License
 

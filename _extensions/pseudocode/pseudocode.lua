@@ -24,21 +24,7 @@ local function ensure_html_deps()
     [[
     <script type="text/javascript">
     (function(d) {
-      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
-        let pseudocodeOptions = {
-          indentSize: el.dataset.indentSize,
-          commentDelimiter: " " + el.dataset.commentDelimiter + " ",
-          lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
-          lineNumberPunc: el.dataset.lineNumberPunc,
-          noEnd: el.dataset.noEnd.toLowerCase() === "true",
-          scopeLines: el.dataset.indentLines.toLowerCase() === "true",
-          titlePrefix: el.dataset.captionPrefix,
-        };
-        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
-      });
-    })(document);
-    (function(d) {
-      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+      function fixCaption(el) {
         let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
         if (captionSpan !== null) {
           let captionPrefix = el.dataset.captionPrefix + " ";
@@ -51,7 +37,68 @@ local function ensure_html_deps()
           }
           captionSpan.innerHTML = captionPrefix + captionNumber;
         }
-      });
+      }
+      function mathBackendReady() {
+        return (typeof window.katex !== "undefined") || (typeof window.MathJax !== "undefined");
+      }
+      function renderAll() {
+        d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+          if (el.dataset.pseudocodeRendered === "true") {
+            return;
+          }
+          let pseudocodeOptions = {
+            indentSize: el.dataset.indentSize,
+            commentDelimiter: " " + el.dataset.commentDelimiter + " ",
+            lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
+            lineNumberPunc: el.dataset.lineNumberPunc,
+            noEnd: el.dataset.noEnd.toLowerCase() === "true",
+            scopeLines: el.dataset.indentLines.toLowerCase() === "true",
+            titlePrefix: el.dataset.captionPrefix,
+          };
+          try {
+            pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+            el.dataset.pseudocodeRendered = "true";
+            fixCaption(el);
+          } catch (e) {            
+            let errDiv = d.createElement("div");
+            errDiv.style.color = "red";
+            errDiv.style.whiteSpace = "pre-wrap";
+            errDiv.style.fontFamily = "monospace";
+            errDiv.style.fontSize = "0.5em";
+            errDiv.style.textAlign = "left";
+            errDiv.textContent = "pseudocode.js render error: " + (e && e.message ? e.message : e);
+            el.appendChild(errDiv);
+          }
+        });
+      }
+      // pseudocode.js resolves its math backend (KaTeX or MathJax) by
+      // checking for the global `katex`/`MathJax` identifiers at the exact
+      // moment pseudocode.renderElement() runs (see the Renderer
+      // constructor in pseudocode.min.js). In a revealjs presentation,
+      // KaTeX/MathJax is loaded asynchronously by reveal.js's own math
+      // plugin (often from a CDN), so rendering immediately can race that
+      // load and fail with:
+      //   "No math backend found. Please setup KaTeX or MathJax."
+      // Poll briefly for a backend to appear before rendering, so this
+      // reliably runs after the backend finishes loading instead of
+      // racing it. If a math backend genuinely never loads (e.g. none is
+      // configured), give up after ~15s and render anyway so any real
+      // error is still surfaced above.
+      function renderAllWhenReady(attemptsLeft) {
+        if (attemptsLeft === undefined) attemptsLeft = 100;
+        if (!mathBackendReady() && attemptsLeft > 0) {
+          setTimeout(function() {
+            renderAllWhenReady(attemptsLeft - 1);
+          }, 150);
+          return;
+        }
+        renderAll();
+      }
+      renderAllWhenReady();
+      if (window.Reveal && typeof window.Reveal.on === "function") {
+        window.Reveal.on("ready", renderAllWhenReady);
+        window.Reveal.on("slidechanged", renderAllWhenReady);
+      }
     })(document);
     </script>
   ]]
@@ -124,6 +171,13 @@ local function extract_source_code_options(source_code, render_type)
   return options, table.concat(source_codes, "\n")
 end
 
+local function html_escape(s)
+  s = string.gsub(s, "&", "&amp;")
+  s = string.gsub(s, "<", "&lt;")
+  s = string.gsub(s, ">", "&gt;")
+  return s
+end
+
 local function render_pseudocode_block_html(global_options)
   ensure_html_deps()
 
@@ -174,8 +228,8 @@ local function render_pseudocode_block_html(global_options)
           data_options[data_k] = v
         end
       end
-
-      local inner_el = pandoc.Div(source_code)
+      
+      local inner_el = pandoc.Div(pandoc.RawBlock("html", html_escape(source_code)))
       inner_el.attr.classes = pandoc.List()
       inner_el.attr.classes:insert("pseudocode")
 
