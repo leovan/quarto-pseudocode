@@ -304,8 +304,9 @@ More examples please refer:
 
 1. Single document (HTML and PDF): [examples/simple](examples/simple).
 2. Book document (HTML and PDF): [examples/book](examples/book).
-3. Beamer document (PDF): [examples/beamer](examples/beamer).
-4. Cross reference example (HTML and PDF): [examples/cross-reference](examples/cross-reference).
+3. Cross reference example (HTML and PDF): [examples/cross-reference](examples/cross-reference).
+4. Beamer presentation (PDF): [examples/beamer](examples/beamer).
+5. Revealjs presentation (HTML): [examples/revealjs](examples/revealjs).
 
 ## License
 

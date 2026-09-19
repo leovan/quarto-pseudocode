@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.0](https://github.com/leovan/quarto-pseudocode/compare/v1.5.0...v1.6.0) (2026-09-19)
+
+### Features
+
+- Add revealjs presentation support. [#17](https://github.com/leovan/quarto-pseudocode/pull/17) ([osorensen](https://github.com/osorensen))
+
+### Bug Fixes
+
+- Fix style in callout block.
+
 ## [1.5.0](https://github.com/leovan/quarto-pseudocode/compare/v1.4.0...v1.5.0) (2026-04-15)
 
 ### Features

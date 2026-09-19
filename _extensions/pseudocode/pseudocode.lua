@@ -16,6 +16,14 @@ local function ensure_html_deps()
     .pseudocode-container {
       text-align: left;
     }
+    .callout .pseudocode-container .ps-root {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    .callout .pseudocode-container .ps-root .ps-algorithm p {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
     </style>
   ]]
   )
@@ -240,7 +248,7 @@ local function render_pseudocode_block_latex(global_options)
       options["pdf-right-comment"] = nil_to_default(options["pdf-right-comment"], "false")
       options["pdf-comment-color"] = nil_to_default(options["pdf-comment-color"], "black")
       options["pdf-comment-delimiter"] = nil_to_default(options["pdf-comment-delimiter"], "//"):gsub("%%", "%%%%")
-      
+
       if string.lower(options["pdf-no-end"]) == "true" then
         algpseudocodex_options = algpseudocodex_options
           .. [[

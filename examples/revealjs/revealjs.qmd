@@ -1,0 +1,88 @@
+---
+title: "Quarto Pseudocode Extension Example"
+filters:
+  - pseudocode
+pseudocode:
+  caption-prefix: "Algorithm"
+  reference-prefix: "Algorithm"
+  caption-number: true
+format:
+  revealjs:
+    include-in-header:
+      text: |
+        <script>
+        MathJax = {
+          loader: {
+            load: ["[tex]/boldsymbol"],
+          },
+          tex: {
+            tags: "all",
+            inlineMath: [["$", "$"], ["\\(", "\\)"]],
+            displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: {
+              "[+]": ["boldsymbol"],
+            },
+          },
+        };
+        </script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js"></script>
+---
+
+## Test math
+
+Inline: $E = m c^2$
+
+Display:
+
+$$
+E = m c^2
+$$
+
+## Test atoms
+
+Test atoms is shown as @algo-test-atoms.
+
+```pseudocode
+#| label: algo-test-atoms
+#| html-line-number: false
+#| html-no-end: true
+#| pdf-line-number: false
+
+\begin{algorithm}
+\caption{Test atoms}
+\begin{algorithmic}
+\State \textbf{Specials:} \{ \} \$ \& \# \% \_
+\State \textbf{Bools:} \And \Or \Not \True \False
+\State \textbf{Carriage return:} first line \\ second line
+\State \textbf{Text-symbols:} \textbackslash
+\State \textbf{Quote-symbols:} `single quotes', ``double quotes''
+\State \textbf{Math:} $(\mathcal{C}_m)$, $i \gets i + 1$, $E=mc^2$, \( x^n + y^n = z^n \), $\$$, \(\$\)
+\end{algorithmic}
+\end{algorithm}
+```
+
+## Test reference
+
+Test atoms is shown as @algo-test-atoms.
+
+## Test pseudocode in custom block
+
+Test callout is shown as @algo-test-callout.
+
+::: {.callout-note}
+```pseudocode
+#| label: algo-test-callout
+#| pdf-placement: "H"
+
+\begin{algorithm}
+\caption{Test callout}
+\begin{algorithmic}
+\Procedure{Test-Callout}{}
+  \State CALLOUT TEST
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+:::

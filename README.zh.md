@@ -304,8 +304,9 @@ Quicksort algorithm is shown as @alg-quicksort.
 
 1. 单文档（HTML 和 PDF）：[examples/simple](examples/simple)。
 2. 书籍文档（HTML 和 PDF）：[examples/book](examples/book)。
-3. Beamer 文档（PDF）：[examples/beamer](examples/beamer)。
-4. 交叉引用示例（HTML 和 PDF）：[examples/cross-reference](examples/cross-reference)。
+3. 交叉引用示例（HTML 和 PDF）：[examples/cross-reference](examples/cross-reference)。
+4. Beamer 幻灯片（PDF）：[examples/beamer](examples/beamer)。
+5. Revealjs 幻灯片 (HTML): [examples/revealjs](examples/revealjs).
 
 ## 版权
 
